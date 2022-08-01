@@ -27,7 +27,7 @@ func init() {
 
 // Environment 环境
 type Environment interface {
-	getEnvValue(str string) interface{}
+	GetEnvValue(str string) interface{}
 }
 
 // formulaEnv 公式环境变量

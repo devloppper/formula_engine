@@ -161,8 +161,8 @@ func (uf unitFormula) calc(w *wrapper, args ...*Token) (*Token, error) {
 		for _, arg := range args {
 			if arg.TokenType == String {
 				v := fmt.Sprintf("%v", arg.Value)
-				if w.env.getEnvValue(v) != nil {
-					arg.Value = w.env.getEnvValue(v)
+				if w.env.GetEnvValue(v) != nil {
+					arg.Value = w.env.GetEnvValue(v)
 				}
 			}
 		}

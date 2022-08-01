@@ -10,7 +10,7 @@ type fakeCell struct {
 	data map[string]string
 }
 
-func (fc fakeCell) getEnvValue(str string) interface{} {
+func (fc fakeCell) GetEnvValue(str string) interface{} {
 	if fc.data == nil {
 		return nil
 	}
