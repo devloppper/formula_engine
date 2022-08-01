@@ -1,4 +1,4 @@
-package excel
+package formula_engine
 
 import "strings"
 
@@ -34,7 +34,7 @@ func NewExpression(str string) (*expression, error) {
 }
 
 // Invoke 执行
-func (exp expression) Invoke(e environment) (interface{}, error) {
+func (exp expression) Invoke(e Environment) (interface{}, error) {
 	w := newWrapper(e)
 	calc, err := exp.root.calc(w)
 	if err != nil {

@@ -1,4 +1,4 @@
-package excel
+package formula_engine
 
 import (
 	"encoding/json"
@@ -25,8 +25,8 @@ func init() {
 	}
 }
 
-// environment 环境
-type environment interface {
+// Environment 环境
+type Environment interface {
 	getEnvValue(str string) interface{}
 }
 
@@ -39,7 +39,7 @@ type formulaEnv struct {
 }
 
 // newWrapper 新建wrapper
-func newWrapper(e environment) *wrapper {
+func newWrapper(e Environment) *wrapper {
 	w := &wrapper{
 		env:   e,
 		fEnv:  map[string]*formulaEnv{},
@@ -55,7 +55,7 @@ func newWrapper(e environment) *wrapper {
 
 // wrapper 包装环境
 type wrapper struct {
-	env   environment            // 运行环境变量
+	env   Environment            // 运行环境变量
 	fEnv  map[string]*formulaEnv // 公式环境变量字典 map[FORMULA_NAME] -- >
 	fDict map[string]formula     // 公式字典
 }

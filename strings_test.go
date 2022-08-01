@@ -1,4 +1,4 @@
-package excel
+package formula_engine
 
 import (
 	"fmt"
