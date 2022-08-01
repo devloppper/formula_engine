@@ -1,0 +1,21 @@
+[
+  {
+    "formula_name": "REPLACEB",
+    "formula_desc": "REPLACEB（原字符串，开始位置，字节个数，新字符串)",
+    "args_type": [
+      "String",
+      "Integer",
+      "Integer",
+      "String"
+    ],
+    "return_type": "String"
+  },
+  {
+    "formula_name": "INT",
+    "formula_desc": "INT(数值) 将数值转成整数 非四舍五入 截取整数",
+    "args_type": [
+      "Number"
+    ],
+    "return_type": "Integer"
+  }
+]
