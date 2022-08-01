@@ -22,7 +22,7 @@ func (fc fakeCell) GetEnvValue(str string) interface{} {
 }
 
 func TestNewExpression2(t *testing.T) {
-	exp, err := NewExpression("REPLACEB(XCELLENTITY, INT(1 + 2), 1, REPLACEB(HELLO, 1, 2, S))")
+	exp, err := NewExpression(" REPLACEB(XCELLENTITY, INT(1 + 2), 1, REPLACEB(HELLO, 1, 2, S))")
 	if err != nil {
 		fmt.Println(err)
 	}
