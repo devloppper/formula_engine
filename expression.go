@@ -12,7 +12,7 @@ var splitDict = map[rune]bool{
 	'%': true,
 }
 
-type expression struct {
+type Expression struct {
 	root *unit
 	*wrapper
 }
@@ -22,7 +22,7 @@ type expression struct {
 // 10 + 20
 // 10 + SUM(1,2)
 // SUM(1, SUM(3,4)
-func NewExpression(str string) (*expression, error) {
+func NewExpression(str string) (*Expression, error) {
 	str = strings.TrimSpace(str)
 	root := &unit{
 		Token: newToken("#Value"),
@@ -30,11 +30,11 @@ func NewExpression(str string) (*expression, error) {
 	if err := newUnit(str, root); err != nil {
 		return nil, err
 	}
-	return &expression{root: root}, nil
+	return &Expression{root: root}, nil
 }
 
 // Invoke 执行
-func (exp expression) Invoke(e Environment) (interface{}, error) {
+func (exp Expression) Invoke(e Environment) (interface{}, error) {
 	w := newWrapper(e)
 	calc, err := exp.root.calc(w)
 	if err != nil {
