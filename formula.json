@@ -17,5 +17,23 @@
       "Number"
     ],
     "return_type": "Integer"
+  },
+  {
+    "formula_name": "GTE",
+    "formula_desc": "GTE(v1,v2) v1 >= v2",
+    "args_type":[
+      "Any",
+      "Any"
+    ],
+    "return_type": "Bool"
+  },
+  {
+    "formula_name": "LTE",
+    "formula_desc": "LTE(v1,v2) v1 <= v2",
+    "args_type":[
+      "Any",
+      "Any"
+    ],
+    "return_type": "Bool"
   }
 ]

@@ -190,6 +190,7 @@ func (uf unitFormula) checkParams(fEnv *formulaEnv, args ...*Token) error {
 	}
 	argIndex := 0
 	for _, argType := range fEnv.ArgsType {
+
 		flexArg := strings.HasPrefix(argType, "...")
 		if flexArg == true {
 			argType = argType[2:]

@@ -11,6 +11,7 @@ const (
 	ArgIntegerType = "Integer" // 整数类型
 	ArgStringType  = "String"  // 字符串类型
 	ArgBoolType    = "Bool"    // 布尔类型
+	ArgAnyType     = "Any"     // 任意类型
 )
 
 var formulaConfigList []*formulaEnv
@@ -54,6 +55,7 @@ func newWrapper(e Environment) *wrapper {
 			w.fEnv[strings.ToUpper(env.FormulaName)] = env
 		}
 	}
+
 	return w
 }
 

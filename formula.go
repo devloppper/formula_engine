@@ -8,6 +8,8 @@ import (
 var formulaDict = map[string]formula{
 	"REPLACEB": &fREPLACEB{},
 	"INT":      &fINT{},
+	"GTE":      &fGTE{},
+	"LTE":      &fLTE{},
 }
 
 // formula 公式

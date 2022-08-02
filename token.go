@@ -90,6 +90,14 @@ func newIntToken(v int64) *Token {
 	}
 }
 
+// newBoolToken 新建一个bool的Token
+func newBoolToken(v bool) *Token {
+	return &Token{
+		TokenType: Bool,
+		Value:     v,
+	}
+}
+
 // getFloatValue 获取浮点数值
 func (t Token) getFloatValue() float64 {
 	if t.Value == nil {
@@ -126,6 +134,8 @@ func compareArgType(argType string, tokenType TokenType) bool {
 		return tokenType == String
 	case ArgBoolType:
 		return tokenType == Bool
+	case ArgAnyType:
+		return true
 	}
 	return false
 }
