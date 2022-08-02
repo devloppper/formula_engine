@@ -7,3 +7,5 @@ var calcSignDict = map[rune]bool{
 	'/': true,
 	'%': true,
 }
+
+const ConfigPath = "FORMULA_CONFIG_PATH"

@@ -16,7 +16,11 @@ const (
 var formulaConfigList []*formulaEnv
 
 func init() {
-	configBytes, err := os.ReadFile("./formula.json")
+	path := os.Getenv(ConfigPath)
+	if path == "" {
+		path = "./formula.json"
+	}
+	configBytes, err := os.ReadFile(path)
 	if err != nil {
 		return
 	}
