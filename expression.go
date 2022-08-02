@@ -1,6 +1,9 @@
 package formula_engine
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 const separator = ','
 
@@ -42,6 +45,13 @@ func (exp Expression) Invoke(e Environment) (interface{}, error) {
 	}
 	if calc == nil || calc.Value == nil {
 		return nil, nil
+	}
+	if calc.TokenType == String {
+		// 可能是潜在变量
+		value := e.GetEnvValue(fmt.Sprintf("%v", calc.Value))
+		if value != nil {
+			return value, nil
+		}
 	}
 	return calc.Value, nil
 }

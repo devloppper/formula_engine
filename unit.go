@@ -127,7 +127,7 @@ func (u unit) calc(w *wrapper) (*Token, error) {
 				}
 				exp = append(exp, tmpResult)
 			} else {
-				exp = append(exp, u.Token)
+				exp = append(exp, param.Token)
 			}
 		}
 		return baseCalc(exp...)
