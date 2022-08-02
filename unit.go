@@ -156,10 +156,12 @@ func (uf unitFormula) calc(w *wrapper, args ...*Token) (*Token, error) {
 	if err := uf.checkParams(fEnv, args...); err != nil {
 		return nil, err
 	}
-	// String类型为潜在变量
+	// String类型为q潜在变量
+	originDict := map[*Token]interface{}{}
 	if w.env != nil {
 		for _, arg := range args {
 			if arg.TokenType == String {
+				originDict[arg] = arg.Value
 				v := fmt.Sprintf("%v", arg.Value)
 				if w.env.GetEnvValue(v) != nil {
 					arg.Value = w.env.GetEnvValue(v)
@@ -171,6 +173,10 @@ func (uf unitFormula) calc(w *wrapper, args ...*Token) (*Token, error) {
 	result, err := fFunc.invoke(w, args...)
 	if err != nil {
 		return nil, err
+	}
+	// 计算完后还原变量
+	for t, v := range originDict {
+		t.Value = v
 	}
 	if compareArgType(fEnv.ReturnType, result.TokenType) == false {
 		return nil, errors.New(fmt.Sprintf("formula:%s return %s but actual it is %s", uf.FormulaName, fEnv.ReturnType, result.TokenType.getStr()))
