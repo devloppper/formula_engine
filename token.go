@@ -60,6 +60,12 @@ func newToken(str string) *Token {
 		}
 		return t
 	}
+	if strings.HasPrefix(str, ".") == true {
+		// .开头的是字符串 不再是数值
+		t.TokenType = String
+		t.Value = str
+		return t
+	}
 	// 先判断是否是整数值
 	if intValue, err := strconv.ParseInt(str, 10, 64); err == nil {
 		t.TokenType = Integer
