@@ -16,35 +16,51 @@ const (
 type fGTE struct{}
 
 func (g fGTE) invoke(env *wrapper, args ...*Token) (*Token, error) {
-	v1 := args[0]
-	v2 := args[1]
-	// 如果其中有一个是String的就全部用String进行判断
-	if v1.TokenType == String || v2.TokenType == String {
-		vStr1 := v1.getStr()
-		vStr2 := v2.getStr()
-		return newBoolToken(compareStr(vStr1, vStr2, gte)), nil
-	}
-	// 数值类型全部转换成Float64进行判断
-	v1f := v1.getFloatValue()
-	v2f := v2.getFloatValue()
-	return newBoolToken(compareNumber(v1f, v2f, gte)), nil
+	return compare(args[0], args[1], gte)
 }
 
 type fLTE struct{}
 
 func (l fLTE) invoke(env *wrapper, args ...*Token) (*Token, error) {
-	v1 := args[0]
-	v2 := args[1]
+	return compare(args[0], args[1], lte)
+}
+
+type fLT struct{}
+
+func (f fLT) invoke(env *wrapper, args ...*Token) (*Token, error) {
+	return compare(args[0], args[1], lt)
+}
+
+type fGT struct{}
+
+func (f fGT) invoke(env *wrapper, args ...*Token) (*Token, error) {
+	return compare(args[0], args[1], gt)
+}
+
+type fEQ struct{}
+
+func (f fEQ) invoke(env *wrapper, args ...*Token) (*Token, error) {
+	return compare(args[0], args[1], eq)
+}
+
+type fNEQ struct{}
+
+func (f fNEQ) invoke(env *wrapper, args ...*Token) (*Token, error) {
+	return compare(args[0], args[1], neq)
+}
+
+// compare 比较
+func compare(v1, v2 *Token, way compareType) (*Token, error) {
 	// 如果其中有一个是String的就全部用String进行判断
 	if v1.TokenType == String || v2.TokenType == String {
 		vStr1 := v1.getStr()
 		vStr2 := v2.getStr()
-		return newBoolToken(compareStr(vStr1, vStr2, lte)), nil
+		return newBoolToken(compareStr(vStr1, vStr2, way)), nil
 	}
 	// 数值类型全部转换成Float64进行判断
 	v1f := v1.getFloatValue()
 	v2f := v2.getFloatValue()
-	return newBoolToken(compareNumber(v1f, v2f, lte)), nil
+	return newBoolToken(compareNumber(v1f, v2f, way)), nil
 }
 
 // compareStr 字符串大小比较

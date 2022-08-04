@@ -10,6 +10,11 @@ var formulaDict = map[string]formula{
 	"INT":      &fINT{},
 	"GTE":      &fGTE{},
 	"LTE":      &fLTE{},
+	"GT":       &fGT{},
+	"LT":       &fLT{},
+	"EQ":       &fEQ{},
+	"NEQ":      &fNEQ{},
+	"LIKE":     &fLike{},
 }
 
 // formula 公式

@@ -35,5 +35,50 @@
       "Any"
     ],
     "return_type": "Bool"
+  },
+  {
+    "formula_name": "NEQ",
+    "formula_desc": "NEQ(v1,v2) v1 != v2",
+    "args_type":[
+      "Any",
+      "Any"
+    ],
+    "return_type": "Bool"
+  },
+  {
+    "formula_name": "LT",
+    "formula_desc": "LT(v1,v2) v1 < v2",
+    "args_type":[
+      "Any",
+      "Any"
+    ],
+    "return_type": "Bool"
+  },
+  {
+    "formula_name": "GT",
+    "formula_desc": "GT(v1,v2) v1 > v2",
+    "args_type":[
+      "Any",
+      "Any"
+    ],
+    "return_type": "Bool"
+  },
+  {
+    "formula_name": "EQ",
+    "formula_desc": "EQ(v1,v2) v1 == v2",
+    "args_type":[
+      "Any",
+      "Any"
+    ],
+    "return_type": "Bool"
+  },
+  {
+    "formula_name": "LIKE",
+    "formula_desc": "LIKE(pattern, str) 进行字符串匹配 现在进支持 %",
+    "args_type":[
+      "String",
+      "String"
+    ],
+    "return_type": "Bool"
   }
 ]

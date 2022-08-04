@@ -123,6 +123,18 @@ func (t Token) getIntValue() int {
 	return 0
 }
 
+// getStringValue 获取字符串值
+func (t Token) getStringValue() string {
+	if t.Value == nil {
+		return ""
+	}
+	if v, ok := t.Value.(string); ok == false {
+		return ""
+	} else {
+		return v
+	}
+}
+
 // compareArgType 比较参数类型
 func compareArgType(argType string, tokenType TokenType) bool {
 	switch argType {
