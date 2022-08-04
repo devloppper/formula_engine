@@ -104,6 +104,14 @@ func newBoolToken(v bool) *Token {
 	}
 }
 
+// newStringToken 新建一个String的Token
+func newStringToken(v string) *Token {
+	return &Token{
+		TokenType: String,
+		Value:     v,
+	}
+}
+
 // getFloatValue 获取浮点数值
 func (t Token) getFloatValue() float64 {
 	if t.Value == nil {

@@ -39,14 +39,14 @@ func (r fREPLACEB) invoke(env *wrapper, args ...*Token) (*Token, error) {
 	str := fmt.Sprintf("%v", args[0].Value)
 	targetStr := fmt.Sprintf("%v", args[3].Value)
 	if startPos > len(str) {
-		return newToken(str), nil
+		return newStringToken(str), nil
 	}
 	prefix := str[0:startPos]
 	if startPos+count >= len(str) {
-		return newToken(prefix + targetStr), nil
+		return newStringToken(prefix + targetStr), nil
 	}
 	suffix := str[startPos+count:]
-	return newToken(prefix + targetStr + suffix), nil
+	return newStringToken(prefix + targetStr + suffix), nil
 }
 
 type fINT struct{}
