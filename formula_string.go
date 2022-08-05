@@ -14,7 +14,13 @@ type fLike struct{}
 func (f fLike) invoke(env *wrapper, args ...*Token) (*Token, error) {
 	pattern := args[0].getStringValue()
 	origin := args[1].getStringValue()
-
+	if pattern == "" {
+		if origin == "" {
+			return newBoolToken(true), nil
+		} else {
+			return newBoolToken(false), nil
+		}
+	}
 	realPattern := strings.ReplaceAll(pattern, commonSignStr, "")
 	startPos := 0
 	endPos := len(pattern) - 1
