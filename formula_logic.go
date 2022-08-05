@@ -53,8 +53,8 @@ func (f fNEQ) invoke(env *wrapper, args ...*Token) (*Token, error) {
 func compare(v1, v2 *Token, way compareType) (*Token, error) {
 	// 如果其中有一个是String的就全部用String进行判断
 	if v1.TokenType == String || v2.TokenType == String {
-		vStr1 := v1.getStr()
-		vStr2 := v2.getStr()
+		vStr1 := v1.getStringValue()
+		vStr2 := v2.getStringValue()
 		return newBoolToken(compareStr(vStr1, vStr2, way)), nil
 	}
 	// 数值类型全部转换成Float64进行判断
