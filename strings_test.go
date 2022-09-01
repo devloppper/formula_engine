@@ -10,3 +10,42 @@ func TestNewExpression(t *testing.T) {
 	fmt.Println(len(str) - 1)
 	fmt.Println(findLastMatchClosure(str))
 }
+
+type scope struct {
+	data map[string]interface{}
+}
+
+func (s scope) GetEnvValue(str string) interface{} {
+	if s.data == nil {
+		return nil
+	}
+	return s.data[str]
+}
+
+func TestIsBlank(t *testing.T) {
+	str := "ISBLANK(ATTR_VALUE)"
+	expression, err := NewExpression(str)
+	if err != nil {
+		panic(err)
+	}
+	env := scope{
+		data: map[string]interface{}{
+			"ATTR_VALUE": "",
+		},
+	}
+	shouldBeTrue, err := expression.Invoke(env)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(shouldBeTrue)
+	env2 := scope{
+		data: map[string]interface{}{
+			"ATTR_VALUE": "1",
+		},
+	}
+	shouldBeFalse, err := expression.Invoke(env2)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(shouldBeFalse)
+}

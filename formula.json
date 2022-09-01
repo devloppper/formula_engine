@@ -80,5 +80,13 @@
       "String"
     ],
     "return_type": "Bool"
+  },
+  {
+    "formula_name": "ISBLANK",
+    "formula_desc": "ISBLANK(str) 判断str是否是空字符串",
+    "args_type": [
+      "String"
+    ],
+    "return_type": "Bool"
   }
 ]

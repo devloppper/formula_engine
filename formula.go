@@ -15,6 +15,7 @@ var formulaDict = map[string]formula{
 	"EQ":       &fEQ{},
 	"NEQ":      &fNEQ{},
 	"LIKE":     &fLike{},
+	"ISBLANK":  &fISBLANK{},
 }
 
 // formula 公式
