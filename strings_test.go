@@ -49,3 +49,32 @@ func TestIsBlank(t *testing.T) {
 	}
 	fmt.Println(shouldBeFalse)
 }
+
+/*
+$inside_attr:ENTITY(IS_SAP:EQ(ATTR_VALUE,YD),
+IS_SAP:EQ(ATTR_VALUE,YF)
+&PARENTH1:NEQ(ATTR_VALUE,TOTAL)
+&PARENTH1:NEQ(ATTR_VALUE,ENV_JT))
+*/
+func TestEq(t *testing.T) {
+
+}
+
+func TestHasSubStr(t *testing.T) {
+	str := "HASSUBSTR(a,b)"
+	expression, err := NewExpression(str)
+	if err != nil {
+		panic(err)
+	}
+	env2 := scope{
+		data: map[string]interface{}{
+			"a": "hello world",
+			"b": "ell",
+		},
+	}
+	shouldBeFalse, err := expression.Invoke(env2)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(shouldBeFalse)
+}

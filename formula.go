@@ -6,16 +6,17 @@ import (
 )
 
 var formulaDict = map[string]formula{
-	"REPLACEB": &fREPLACEB{},
-	"INT":      &fINT{},
-	"GTE":      &fGTE{},
-	"LTE":      &fLTE{},
-	"GT":       &fGT{},
-	"LT":       &fLT{},
-	"EQ":       &fEQ{},
-	"NEQ":      &fNEQ{},
-	"LIKE":     &fLike{},
-	"ISBLANK":  &fISBLANK{},
+	"REPLACEB":  &fREPLACEB{},
+	"INT":       &fINT{},
+	"GTE":       &fGTE{},
+	"LTE":       &fLTE{},
+	"GT":        &fGT{},
+	"LT":        &fLT{},
+	"EQ":        &fEQ{},
+	"NEQ":       &fNEQ{},
+	"LIKE":      &fLike{},
+	"ISBLANK":   &fISBLANK{},
+	"HASSUBSTR": &fHasSubStr{},
 }
 
 // formula 公式

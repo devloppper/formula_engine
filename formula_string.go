@@ -43,6 +43,14 @@ func (f fLike) invoke(env *wrapper, args ...*Token) (*Token, error) {
 	return newBoolToken(result), nil
 }
 
+type fHasSubStr struct{}
+
+func (f fHasSubStr) invoke(env *wrapper, args ...*Token) (*Token, error) {
+	bigStr := args[0].getStringValue()
+	smallStr := args[1].getStringValue()
+	return newBoolToken(strings.Contains(bigStr, smallStr)), nil
+}
+
 /*
 
 realPattern := strings.ReplaceAll(pattern, CommonSignStr, "")

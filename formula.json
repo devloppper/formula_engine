@@ -88,5 +88,14 @@
       "String"
     ],
     "return_type": "Bool"
+  },
+  {
+    "formula_name": "HASSUBSTR",
+    "formula_desc": "HASSUBSTR(strA, strB) 判断字符串strB是否属于字符串strA 大小写敏感",
+    "args_type": [
+      "String",
+      "String"
+    ],
+    "return_type": "Bool"
   }
 ]
