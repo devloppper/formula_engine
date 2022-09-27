@@ -78,3 +78,10 @@ func TestHasSubStr(t *testing.T) {
 	}
 	fmt.Println(shouldBeFalse)
 }
+
+func TestIncludeStr(t *testing.T) {
+	str := "NINCLUDESTR(He, A, B, C,HeA)"
+	expression, _ := NewExpression(str)
+	result, _ := expression.Invoke(nil)
+	fmt.Println(result)
+}

@@ -98,5 +98,23 @@
       "String"
     ],
     "return_type": "Bool"
+  },
+  {
+    "formula_name": "INCLUDESTR",
+    "formula_desc": "INCLUDESTR(strA, str_list) 判断字符串strA是否属于列表str_list 大小写敏感",
+    "args_type": [
+      "String",
+      "...String"
+    ],
+    "return_type": "Bool"
+  },
+  {
+    "formula_name": "NINCLUDESTR",
+    "formula_desc": "NINCLUDESTR(strA, str_list) 判断字符串strA是否不属于列表str_list 大小写敏感",
+    "args_type": [
+      "String",
+      "...String"
+    ],
+    "return_type": "Bool"
   }
 ]
