@@ -149,6 +149,18 @@ func (t Token) getStringValue() string {
 	}
 }
 
+// getBoolValue 获取布尔值
+func (t Token) getBoolValue() bool {
+	if t.Value == nil {
+		return false
+	}
+	if v, ok := t.Value.(bool); ok == false {
+		return false
+	} else {
+		return v
+	}
+}
+
 // compareArgType 比较参数类型
 func compareArgType(argType string, tokenType TokenType) bool {
 	switch argType {

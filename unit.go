@@ -193,7 +193,7 @@ func (uf unitFormula) checkParams(fEnv *formulaEnv, args ...*Token) error {
 
 		flexArg := strings.HasPrefix(argType, "...")
 		if flexArg == true {
-			argType = argType[2:]
+			argType = argType[3:]
 		}
 		arg := args[argIndex]
 		if flexArg == false {

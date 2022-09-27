@@ -23,14 +23,14 @@ func (s scope) GetEnvValue(str string) interface{} {
 }
 
 func TestIsBlank(t *testing.T) {
-	str := "ISBLANK(ATTR_VALUE)"
+	str := "ISBLANK(ATTR_VALUE,TRUE)"
 	expression, err := NewExpression(str)
 	if err != nil {
 		panic(err)
 	}
 	env := scope{
 		data: map[string]interface{}{
-			"ATTR_VALUE": "",
+			"ATTR_VALUE": " 1",
 		},
 	}
 	shouldBeTrue, err := expression.Invoke(env)

@@ -83,9 +83,10 @@
   },
   {
     "formula_name": "ISBLANK",
-    "formula_desc": "ISBLANK(str) 判断str是否是空字符串",
+    "formula_desc": "ISBLANK(str, [will_trim]) 判断str是否是空字符串 will_trim为true是，表示去除前后空格",
     "args_type": [
-      "String"
+      "String",
+      "...Bool"
     ],
     "return_type": "Bool"
   },
