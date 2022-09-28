@@ -1,6 +1,7 @@
 package formula_engine
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -143,10 +144,16 @@ func (t Token) getStringValue() string {
 		return ""
 	}
 	if v, ok := t.Value.(string); ok == false {
-		return ""
+		if v2, ok2 := t.Value.(int64); ok2 == true {
+			return fmt.Sprintf("%d", v2)
+		}
+		if v2, ok2 := t.Value.(float64); ok2 == true {
+			return fmt.Sprintf("%f", v2)
+		}
 	} else {
 		return v
 	}
+	return ""
 }
 
 // getBoolValue 获取布尔值
