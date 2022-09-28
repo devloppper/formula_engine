@@ -80,8 +80,42 @@ func TestHasSubStr(t *testing.T) {
 }
 
 func TestIncludeStr(t *testing.T) {
-	str := "NINCLUDESTR(He, A, B, C,HeA)"
+	str := "INCLUDESTR(ATTR_VALUE,I_ENV_PRC,I_ENV_HKI)"
+	w2 := NewWrapperEnv(&wrapperEnv{
+		data: map[string]interface{}{},
+	})
+	w2.AddEnv("ATTR_VALUE", "I_ENV_HKI")
 	expression, _ := NewExpression(str)
-	result, _ := expression.Invoke(nil)
+	result, _ := expression.Invoke(w2)
 	fmt.Println(result)
+}
+
+type wrapperEnv struct {
+	parentEnv Environment
+	data      map[string]interface{}
+}
+
+// NewWrapperEnv 新建一个包装环境
+func NewWrapperEnv(pEnv Environment) *wrapperEnv {
+	return &wrapperEnv{
+		parentEnv: pEnv,
+		data:      map[string]interface{}{},
+	}
+}
+
+// AddEnv 添加一个环境
+func (we *wrapperEnv) AddEnv(key string, v interface{}) {
+	we.data[key] = v
+}
+
+// GetEnvValue 获取环境值
+func (we wrapperEnv) GetEnvValue(str string) interface{} {
+	var value interface{}
+	if we.data != nil {
+		value = we.data[str]
+	}
+	if value == nil && we.parentEnv != nil {
+		value = we.parentEnv.GetEnvValue(str)
+	}
+	return value
 }

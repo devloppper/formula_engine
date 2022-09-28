@@ -76,8 +76,8 @@
     "formula_name": "LIKE",
     "formula_desc": "LIKE(pattern, str) 进行字符串匹配 现在进支持 %",
     "args_type":[
-      "String",
-      "String"
+      "Any",
+      "Any"
     ],
     "return_type": "Bool"
   },
