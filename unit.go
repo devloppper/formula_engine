@@ -184,27 +184,38 @@ func (uf unitFormula) calc(w *wrapper, args ...*Token) (*Token, error) {
 	return result, nil
 }
 
+// checkParams 检查参数
+// 如果需要String的，则将参数类型转为String
 func (uf unitFormula) checkParams(fEnv *formulaEnv, args ...*Token) error {
 	if len(fEnv.ArgsType) > len(args) {
 		return errors.New(fmt.Sprintf("formula:%s need at least %d args but actual it is %d", uf.FormulaName, len(fEnv.ArgsType), len(args)))
 	}
 	argIndex := 0
 	for _, argType := range fEnv.ArgsType {
-
 		flexArg := strings.HasPrefix(argType, "...")
 		if flexArg == true {
 			argType = argType[3:]
 		}
 		arg := args[argIndex]
 		if flexArg == false {
-			if result := compareArgType(argType, arg.TokenType); result != true {
-				return errors.New(fmt.Sprintf("formula:%s need arg type:%s But actual it is %s", uf.FormulaName, argType, arg.TokenType.getStr()))
+			if argType == ArgStringType {
+				arg.Value = arg.getStringValue()
+				arg.TokenType = String
+			} else {
+				if result := compareArgType(argType, arg.TokenType); result != true {
+					return errors.New(fmt.Sprintf("formula:%s need arg type:%s But actual it is %s", uf.FormulaName, argType, arg.TokenType.getStr()))
+				}
 			}
 		} else {
 			for i := argIndex; i < len(args); i++ {
 				arg = args[i]
-				if result := compareArgType(argType, arg.TokenType); result != true {
-					return errors.New(fmt.Sprintf("formula:%s need arg type:%s But actual it is %s", uf.FormulaName, argType, arg.TokenType.getStr()))
+				if argType == ArgStringType {
+					arg.Value = arg.getStringValue()
+					arg.TokenType = String
+				} else {
+					if result := compareArgType(argType, arg.TokenType); result != true {
+						return errors.New(fmt.Sprintf("formula:%s need arg type:%s But actual it is %s", uf.FormulaName, argType, arg.TokenType.getStr()))
+					}
 				}
 			}
 			break

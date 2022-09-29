@@ -80,11 +80,11 @@ func TestHasSubStr(t *testing.T) {
 }
 
 func TestIncludeStr(t *testing.T) {
-	str := "INCLUDESTR(ATTR_VALUE,I_ENV_PRC,I_ENV_HKI)"
+	str := "INCLUDESTR(ATTR_VALUE,1000,I_ENV_HKI)"
 	w2 := NewWrapperEnv(&wrapperEnv{
 		data: map[string]interface{}{},
 	})
-	w2.AddEnv("ATTR_VALUE", "I_ENV_HKI")
+	w2.AddEnv("ATTR_VALUE", "1000")
 	expression, _ := NewExpression(str)
 	result, _ := expression.Invoke(w2)
 	fmt.Println(result)
