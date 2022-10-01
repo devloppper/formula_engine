@@ -90,6 +90,63 @@ func TestIncludeStr(t *testing.T) {
 	fmt.Println(result)
 }
 
+func TestReplaceB(t *testing.T) {
+	str := "REPLACEB($fs,3,999, )"
+	env := NewWrapperEnv(nil)
+	env.AddEnv("$fs", "HELLO WORLD")
+	expression, _ := NewExpression(str)
+	result, err := expression.Invoke(env)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(len(fmt.Sprintf("%v", result)))
+}
+
+func TestMid(t *testing.T) {
+	str := "MID($fs, 2, 10)"
+	expression, err := NewExpression(str)
+	if err != nil {
+		panic(err)
+	}
+	env := NewWrapperEnv(nil)
+	env.AddEnv("$fs", "HELLO WORLD")
+	result, err := expression.Invoke(env)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(result)
+}
+
+func TestLEFT(t *testing.T) {
+	str := "LEFT($fs, 1000)"
+	expression, err := NewExpression(str)
+	if err != nil {
+		panic(err)
+	}
+	env := NewWrapperEnv(nil)
+	env.AddEnv("$fs", "HELLO WORLD")
+	result, err := expression.Invoke(env)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(result)
+}
+
+func TestRIGHT(t *testing.T) {
+	str := "RIGHT($fs, 9)"
+	expression, err := NewExpression(str)
+	if err != nil {
+		panic(err)
+	}
+	env := NewWrapperEnv(nil)
+	env.AddEnv("$fs", "HELLO WORLD")
+	result, err := expression.Invoke(env)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(result)
+}
+
 type wrapperEnv struct {
 	parentEnv Environment
 	data      map[string]interface{}

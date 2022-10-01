@@ -47,3 +47,66 @@ func (f *fNINCLUDESTR) invoke(env *wrapper, args ...*Token) (*Token, error) {
 	standardStr := args[0].getStringValue()
 	return newBoolToken(!strDict[standardStr]), nil
 }
+
+// fMid MID(字符串,起始位置,取子符串位数) 起始位置包含 小于1按1处理
+type fMid struct{}
+
+func (f *fMid) invoke(env *wrapper, args ...*Token) (*Token, error) {
+	str := args[0].getStringValue()
+	if str == "" {
+		return newStringToken(str), nil
+	}
+	startPos := args[1].getIntValue()
+	if startPos < 1 {
+		// 小于1按照1处理
+		startPos = 1
+	}
+	startPos--
+	if startPos > len(str)-1 {
+		return newStringToken(""), nil
+	}
+	subLen := args[2].getIntValue()
+	if subLen <= 0 {
+		return newStringToken(""), nil
+	}
+	if startPos+subLen >= len(str) {
+		return newStringToken(str[startPos:]), nil
+	} else {
+		return newStringToken(str[startPos : startPos+subLen]), nil
+	}
+}
+
+// fLeft LEFT(字符串,取子符串位数)
+type fLeft struct{}
+
+func (f *fLeft) invoke(env *wrapper, args ...*Token) (*Token, error) {
+	str := args[0].getStringValue()
+	if str == "" {
+		return newStringToken(""), nil
+	}
+	subLen := args[1].getIntValue()
+	if subLen < 1 {
+		return newStringToken(""), nil
+	}
+	if subLen > len(str) {
+		return newStringToken(str), nil
+	}
+	return newStringToken(str[:subLen]), nil
+}
+
+type fRight struct{}
+
+func (f *fRight) invoke(env *wrapper, args ...*Token) (*Token, error) {
+	str := args[0].getStringValue()
+	if str == "" {
+		return newStringToken(""), nil
+	}
+	subLen := args[1].getIntValue()
+	if subLen < 1 {
+		return newStringToken(""), nil
+	}
+	if subLen > len(str) {
+		return newStringToken(str), nil
+	}
+	return newStringToken(str[len(str)-subLen:]), nil
+}

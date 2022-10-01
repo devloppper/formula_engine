@@ -19,6 +19,9 @@ var formulaDict = map[string]formula{
 	"HASSUBSTR":   &fHasSubStr{},
 	"INCLUDESTR":  &fINCLUDESTR{},
 	"NINCLUDESTR": &fNINCLUDESTR{},
+	"MID":         &fMid{},
+	"LEFT":        &fLeft{},
+	"RIGHT":       &fRight{},
 }
 
 // formula 公式

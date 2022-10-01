@@ -116,5 +116,33 @@
       "...String"
     ],
     "return_type": "Bool"
+  },
+  {
+    "formula_name": "MID",
+    "formula_desc": "MID(字符串,起始位置,取子符串位数) 起始位置包含 小于1按1处理",
+    "args_type": [
+      "String",
+      "Integer",
+      "Integer"
+    ],
+    "return_type": "String"
+  },
+  {
+    "formula_name": "LEFT",
+    "formula_desc": "LEFT(字符串,取子符串位数)",
+    "args_type":[
+      "String",
+      "Integer"
+    ],
+    "return_type": "String"
+  },
+  {
+    "formula_name": "RIGHT",
+    "formula_desc": "RIGHT(字符串,取子符串位数)",
+    "args_type":[
+      "String",
+      "Integer"
+    ],
+    "return_type": "String"
   }
 ]
