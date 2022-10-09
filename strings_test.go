@@ -118,13 +118,13 @@ func TestMid(t *testing.T) {
 }
 
 func TestLEFT(t *testing.T) {
-	str := "LEFT($fs, 1000)"
+	str := "LEFT($fs, 7)"
 	expression, err := NewExpression(str)
 	if err != nil {
 		panic(err)
 	}
 	env := NewWrapperEnv(nil)
-	env.AddEnv("$fs", "HELLO WORLD")
+	env.AddEnv("$fs", "ER-J009-02")
 	result, err := expression.Invoke(env)
 	if err != nil {
 		panic(err)

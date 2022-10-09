@@ -49,6 +49,15 @@ func (f fNEQ) invoke(env *wrapper, args ...*Token) (*Token, error) {
 	return compare(args[0], args[1], neq)
 }
 
+type fIF struct{}
+
+func (f fIF) invoke(env *wrapper, args ...*Token) (*Token, error) {
+	if args[0].getBoolValue() == true {
+		return args[1].copy(), nil
+	}
+	return args[2].copy(), nil
+}
+
 // compare 比较
 func compare(v1, v2 *Token, way compareType) (*Token, error) {
 	// 如果其中有一个是String的就全部用String进行判断

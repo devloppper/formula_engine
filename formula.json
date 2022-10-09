@@ -144,5 +144,15 @@
       "Integer"
     ],
     "return_type": "String"
+  },
+  {
+    "formula_name": "IF",
+    "formula_desc": "IF(BOOL, ANY, ANY)判断条件且取值",
+    "args_type": [
+      "Bool",
+      "Any",
+      "Any"
+    ],
+    "return_type": "Any"
   }
 ]

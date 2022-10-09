@@ -22,6 +22,7 @@ var formulaDict = map[string]formula{
 	"MID":         &fMid{},
 	"LEFT":        &fLeft{},
 	"RIGHT":       &fRight{},
+	"IF":          &fIF{},
 }
 
 // formula 公式

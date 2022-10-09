@@ -168,6 +168,13 @@ func (t Token) getBoolValue() bool {
 	}
 }
 
+func (t Token) copy() *Token {
+	return &Token{
+		TokenType: t.TokenType,
+		Value:     t.Value,
+	}
+}
+
 // compareArgType 比较参数类型
 func compareArgType(argType string, tokenType TokenType) bool {
 	switch argType {
