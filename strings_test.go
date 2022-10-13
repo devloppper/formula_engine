@@ -23,7 +23,7 @@ func (s scope) GetEnvValue(str string) interface{} {
 }
 
 func TestIsBlank(t *testing.T) {
-	str := "ISBLANK(ATTR_VALUE,TRUE)"
+	str := "ISBLANK(ATTR_VALUE)"
 	expression, err := NewExpression(str)
 	if err != nil {
 		panic(err)
