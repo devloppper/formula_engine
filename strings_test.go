@@ -80,26 +80,29 @@ func TestHasSubStr(t *testing.T) {
 }
 
 func TestIncludeStr(t *testing.T) {
-	str := "INCLUDESTR(ATTR_VALUE,1000,I_ENV_HKI)"
+	str := "INCLUDESTR(ATTR_VALUE,IL1-1-1-3)"
 	w2 := NewWrapperEnv(&wrapperEnv{
 		data: map[string]interface{}{},
 	})
-	w2.AddEnv("ATTR_VALUE", "1000")
+	w2.AddEnv("ATTR_VALUE", "I_BL2")
 	expression, _ := NewExpression(str)
 	result, _ := expression.Invoke(w2)
+	fmt.Println(result)
+	w2.AddEnv("ATTR_VALUE", "I_BL")
+	result, _ = expression.Invoke(w2)
 	fmt.Println(result)
 }
 
 func TestReplaceB(t *testing.T) {
-	str := "REPLACEB($fs,3,999, )"
+	str := "IF(EQ(1,1), IF(EQ(2,3),TOM, JERRY),Teifi )"
 	env := NewWrapperEnv(nil)
-	env.AddEnv("$fs", "HELLO WORLD")
+	env.AddEnv("ATTR_VALUE", " ")
 	expression, _ := NewExpression(str)
 	result, err := expression.Invoke(env)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(len(fmt.Sprintf("%v", result)))
+	println(fmt.Sprintf("%v", result))
 }
 
 func TestMid(t *testing.T) {
@@ -145,6 +148,19 @@ func TestRIGHT(t *testing.T) {
 		panic(err)
 	}
 	fmt.Println(result)
+}
+
+func TestConvert(t *testing.T) {
+	str := "CONVERTSTR(INT(IL1-1-1-3))"
+	expression, err := NewExpression(str)
+	if err != nil {
+		panic(err)
+	}
+	invoke, err := expression.Invoke(nil)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(invoke)
 }
 
 type wrapperEnv struct {

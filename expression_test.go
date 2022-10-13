@@ -48,3 +48,17 @@ func TestGt(t *testing.T) {
 	result, _ := exp.Invoke(w)
 	fmt.Println(result)
 }
+
+func TestE(t *testing.T) {
+	expression, err := NewExpression("num1*(-1)")
+	if err != nil {
+		panic(err)
+	}
+	env := NewWrapperEnv(nil)
+	env.AddEnv("num1", 10.0)
+	result, err := expression.Invoke(nil)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(result)
+}

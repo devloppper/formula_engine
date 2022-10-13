@@ -5,6 +5,10 @@ import (
 	"fmt"
 )
 
+var ignoreFormulaParamCalc = map[string]bool{
+	"CONVERTSTR": true,
+}
+
 var formulaDict = map[string]formula{
 	"REPLACEB":    &fREPLACEB{},
 	"INT":         &fINT{},
@@ -23,6 +27,7 @@ var formulaDict = map[string]formula{
 	"LEFT":        &fLeft{},
 	"RIGHT":       &fRight{},
 	"IF":          &fIF{},
+	"CONVERTSTR":  &fConvert{},
 }
 
 // formula 公式

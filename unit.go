@@ -78,6 +78,10 @@ func (u unit) calc(w *wrapper) (*Token, error) {
 		exp := make([]*Token, 0)
 		if len(u.params) > 0 {
 			for _, param := range u.params {
+				if ignoreFormulaParamCalc[u.FormulaName] == true {
+					exp = append(exp, param.Token)
+					continue
+				}
 				if param.unitFormula != nil {
 					tmpResult, err := param.calc(w)
 					if err != nil {
@@ -94,24 +98,28 @@ func (u unit) calc(w *wrapper) (*Token, error) {
 		// 合并参数
 		tempTokens := make([]*Token, 0)
 		paramsToken := make([]*Token, 0)
-		for index, t := range exp {
-			if t.TokenType == Separator {
-				r, err := baseCalc(tempTokens...)
-				if err != nil {
-					return nil, err
+		if ignoreFormulaParamCalc[u.FormulaName] == false {
+			for index, t := range exp {
+				if t.TokenType == Separator {
+					r, err := baseCalc(tempTokens...)
+					if err != nil {
+						return nil, err
+					}
+					paramsToken = append(paramsToken, r)
+					tempTokens = make([]*Token, 0)
+					continue
 				}
-				paramsToken = append(paramsToken, r)
-				tempTokens = make([]*Token, 0)
-				continue
-			}
-			tempTokens = append(tempTokens, t)
-			if index == len(exp)-1 {
-				r, err := baseCalc(tempTokens...)
-				if err != nil {
-					return nil, err
+				tempTokens = append(tempTokens, t)
+				if index == len(exp)-1 {
+					r, err := baseCalc(tempTokens...)
+					if err != nil {
+						return nil, err
+					}
+					paramsToken = append(paramsToken, r)
 				}
-				paramsToken = append(paramsToken, r)
 			}
+		} else {
+			paramsToken = exp
 		}
 		// 真实公式计算
 		return u.unitFormula.calc(w, paramsToken...)
@@ -129,6 +137,9 @@ func (u unit) calc(w *wrapper) (*Token, error) {
 			} else {
 				exp = append(exp, param.Token)
 			}
+		}
+		if len(exp) == 1 {
+			return exp[0], nil
 		}
 		return baseCalc(exp...)
 	}

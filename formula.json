@@ -154,5 +154,13 @@
       "Any"
     ],
     "return_type": "Any"
+  },
+  {
+    "formula_name": "CONVERTSTR",
+    "formula_desc": "CONVERTSTR(...ANY) 将中间所有东西转换成String",
+    "args_type": [
+      "...Any"
+    ],
+    "return_type": "String"
   }
 ]

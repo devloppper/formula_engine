@@ -46,7 +46,7 @@ func (exp Expression) Invoke(e Environment) (interface{}, error) {
 	if calc == nil || calc.Value == nil {
 		return nil, nil
 	}
-	if calc.TokenType == String {
+	if calc.TokenType == String && e != nil {
 		// 可能是潜在变量
 		value := e.GetEnvValue(fmt.Sprintf("%v", calc.Value))
 		if value != nil {
