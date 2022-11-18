@@ -3,7 +3,6 @@ package formula_engine
 import (
 	"errors"
 	"fmt"
-	"github.com/shopspring/decimal"
 	"strings"
 )
 
@@ -325,33 +324,33 @@ func calcToken(s1, s2, sign *Token) (*Token, error) {
 	switch sign.TokenType {
 	case Mul:
 		r.TokenType = Number
-		n1 := decimal.NewFromFloat(s1.getFloatValue())
-		n2 := decimal.NewFromFloat(s2.getFloatValue())
-		r.Value, _ = n1.Mul(n2).Float64()
+		n1 := s1.getFloatValue()
+		n2 := s2.getFloatValue()
+		r.Value = n1.Mul(n2)
 		return r, nil
 	case Div:
 		r.TokenType = Number
-		n1 := decimal.NewFromFloat(s1.getFloatValue())
-		n2 := decimal.NewFromFloat(s2.getFloatValue())
-		r.Value, _ = n1.Div(n2).Float64()
+		n1 := s1.getFloatValue()
+		n2 := s2.getFloatValue()
+		r.Value = n1.Div(n2)
 		return r, nil
 	case Add:
 		r.TokenType = Number
-		n1 := decimal.NewFromFloat(s1.getFloatValue())
-		n2 := decimal.NewFromFloat(s2.getFloatValue())
-		r.Value, _ = n1.Add(n2).Float64()
+		n1 := s1.getFloatValue()
+		n2 := s2.getFloatValue()
+		r.Value = n1.Add(n2)
 		return r, nil
 	case Sub:
 		r.TokenType = Number
-		n1 := decimal.NewFromFloat(s1.getFloatValue())
-		n2 := decimal.NewFromFloat(s2.getFloatValue())
-		r.Value, _ = n1.Sub(n2).Float64()
+		n1 := s1.getFloatValue()
+		n2 := s2.getFloatValue()
+		r.Value = n1.Sub(n2)
 		return r, nil
 	case Mod:
 		r.TokenType = Number
-		n1 := decimal.NewFromFloat(s1.getFloatValue())
-		n2 := decimal.NewFromFloat(s2.getFloatValue())
-		r.Value, _ = n1.Mod(n2).Float64()
+		n1 := s1.getFloatValue()
+		n2 := s2.getFloatValue()
+		r.Value = n1.Mod(n2)
 		return r, nil
 	}
 	return nil, errors.New("unknown calc type")

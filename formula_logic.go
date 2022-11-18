@@ -93,9 +93,7 @@ func compareStr(vStr1, vStr2 string, way compareType) bool {
 }
 
 // compareNumber 数值大小比较
-func compareNumber(v1, v2 float64, way compareType) bool {
-	v1BigD := decimal.NewFromFloat(v1)
-	v2BigD := decimal.NewFromFloat(v2)
+func compareNumber(v1BigD, v2BigD decimal.Decimal, way compareType) bool {
 	switch way {
 	case gte:
 		return v1BigD.GreaterThanOrEqual(v2BigD)

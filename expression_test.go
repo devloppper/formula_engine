@@ -22,7 +22,7 @@ func (fc fakeCell) GetEnvValue(str string) interface{} {
 }
 
 func TestNewExpression2(t *testing.T) {
-	exp, err := NewExpression(" NEQ(10,21)")
+	exp, err := NewExpression("67363020363.40988159+0.00000000")
 	// exp, err := NewExpression("LTE(-10,2)")
 	if err != nil {
 		fmt.Println(err)

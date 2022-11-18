@@ -2,6 +2,7 @@ package formula_engine
 
 import (
 	"fmt"
+	"github.com/shopspring/decimal"
 	"strconv"
 	"strings"
 )
@@ -73,9 +74,9 @@ func newToken(str string) *Token {
 		t.Value = intValue
 		return t
 	}
-	if floatValue, err := strconv.ParseFloat(str, 64); err == nil {
+	if v, err := decimal.NewFromString(str); err == nil {
 		t.TokenType = Number
-		t.Value = floatValue
+		t.Value = v
 		return t
 	}
 	// 再判断是否为bool值
@@ -114,17 +115,17 @@ func newStringToken(v string) *Token {
 }
 
 // getFloatValue 获取浮点数值
-func (t Token) getFloatValue() float64 {
+func (t Token) getFloatValue() decimal.Decimal {
 	if t.Value == nil {
-		return 0
+		return decimal.NewFromFloat(0)
 	}
 	if n, ok := t.Value.(int64); ok == true {
-		return float64(n)
+		return decimal.NewFromInt(n)
 	}
-	if n, ok := t.Value.(float64); ok == true {
+	if n, ok := t.Value.(decimal.Decimal); ok == true {
 		return n
 	}
-	return 0
+	return decimal.NewFromFloat(0)
 }
 
 // getIntValue 获取整数值

@@ -2,6 +2,7 @@ package formula_engine
 
 import (
 	"fmt"
+	"github.com/shopspring/decimal"
 	"strings"
 )
 
@@ -51,6 +52,11 @@ func (exp Expression) Invoke(e Environment) (interface{}, error) {
 		value := e.GetEnvValue(fmt.Sprintf("%v", calc.Value))
 		if value != nil {
 			return value, nil
+		}
+	}
+	if calc.TokenType == Number {
+		if v, ok := calc.Value.(decimal.Decimal); ok == true {
+			return v.String(), nil
 		}
 	}
 	return calc.Value, nil

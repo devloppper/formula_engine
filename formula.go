@@ -66,6 +66,6 @@ type fINT struct{}
 
 func (i fINT) invoke(env *wrapper, args ...*Token) (*Token, error) {
 	arg := args[0]
-	result := int64(arg.getFloatValue())
+	result := arg.getFloatValue().IntPart()
 	return newIntToken(result), nil
 }
