@@ -22,18 +22,17 @@ func (fc fakeCell) GetEnvValue(str string) interface{} {
 }
 
 func TestNewExpression2(t *testing.T) {
-	exp, err := NewExpression("67363020363.40988159+0.00000000")
-	// exp, err := NewExpression("LTE(-10,2)")
+	exp, err := NewExpression("{V1}+{V2}")
 	if err != nil {
 		fmt.Println(err)
 	}
 	// 模拟单元格中的变量
-	fc := &fakeCell{
-		data: map[string]string{
-			"XCELLENTITY": "EH1010",
+	s := &scope{
+		data: map[string]interface{}{
+			"V1": 123.4,
 		},
 	}
-	result, err := exp.Invoke(fc)
+	result, err := exp.Invoke(s)
 	if err != nil {
 		fmt.Println(err)
 	}

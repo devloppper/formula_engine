@@ -72,7 +72,7 @@ func newUnit(str string, u *unit) error {
 }
 
 // calc 计算节点值
-func (u unit) calc(w *wrapper) (*Token, error) {
+func (u unit) calc(w *wrapper, e Environment) (*Token, error) {
 	if u.unitFormula != nil {
 		exp := make([]*Token, 0)
 		if len(u.params) > 0 {
@@ -82,13 +82,22 @@ func (u unit) calc(w *wrapper) (*Token, error) {
 					continue
 				}
 				if param.unitFormula != nil {
-					tmpResult, err := param.calc(w)
+					tmpResult, err := param.calc(w, e)
 					if err != nil {
 						return nil, err
 					}
 					exp = append(exp, tmpResult)
 				} else {
-					exp = append(exp, param.Token)
+					if param.Token.TokenType == Variable {
+						vName := GetInterfaceStringValue(param.Token.Value)
+						value := e.GetEnvValue(vName)
+						if value == nil {
+							return nil, errors.New(fmt.Sprintf("variable:%s lacked", vName))
+						}
+						exp = append(exp, newToken(GetInterfaceStringValue(value)))
+					} else {
+						exp = append(exp, param.Token)
+					}
 				}
 			}
 		} else {
@@ -128,13 +137,22 @@ func (u unit) calc(w *wrapper) (*Token, error) {
 		exp := make([]*Token, 0)
 		for _, param := range u.params {
 			if param.unitFormula != nil {
-				tmpResult, err := param.calc(w)
+				tmpResult, err := param.calc(w, e)
 				if err != nil {
 					return nil, err
 				}
 				exp = append(exp, tmpResult)
 			} else {
-				exp = append(exp, param.Token)
+				if param.Token.TokenType == Variable {
+					vName := GetInterfaceStringValue(param.Token.Value)
+					value := e.GetEnvValue(vName)
+					if value == nil {
+						return nil, errors.New(fmt.Sprintf("variable:%s lacked", vName))
+					}
+					exp = append(exp, newToken(GetInterfaceStringValue(value)))
+				} else {
+					exp = append(exp, param.Token)
+				}
 			}
 		}
 		if len(exp) == 1 {

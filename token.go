@@ -23,6 +23,8 @@ const (
 	Mod
 	Div
 	Add
+
+	Variable
 )
 
 // Token 元素
@@ -85,8 +87,13 @@ func newToken(str string) *Token {
 		t.Value = strings.ToUpper(str) == "TRUE"
 		return t
 	}
-	t.TokenType = String
-	t.Value = str
+	if strings.HasPrefix(str, "{") && strings.HasSuffix(str, "}") && len(str) > 2 {
+		t.TokenType = Variable
+		t.Value = str[1 : len(str)-1]
+	} else {
+		t.TokenType = String
+		t.Value = str
+	}
 	return t
 }
 

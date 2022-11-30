@@ -40,7 +40,7 @@ func NewExpression(str string) (*Expression, error) {
 // Invoke 执行
 func (exp Expression) Invoke(e Environment) (interface{}, error) {
 	w := newWrapper(e)
-	calc, err := exp.root.calc(w)
+	calc, err := exp.root.calc(w, e)
 	if err != nil {
 		return nil, err
 	}
