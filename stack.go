@@ -31,3 +31,15 @@ func (st *stack) Pop() *Token {
 func (st *stack) len() int {
 	return len(st.data)
 }
+
+// reverse 反转
+func (st *stack) reverse() {
+	current := 0
+	data := map[int]*Token{}
+	for st.len() > 0 {
+		current++
+		data[current] = st.Pop()
+	}
+	st.data = data
+	st.current = current
+}

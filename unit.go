@@ -295,6 +295,7 @@ func baseCalc(tokens ...*Token) (*Token, error) {
 
 // calcStack 计算栈中元素
 func calcStack(s *stack) (*Token, error) {
+	s.reverse()
 	s1 := NewStack()
 	// 先算高优先级 * / %
 	for s.len() > 0 {
@@ -314,6 +315,7 @@ func calcStack(s *stack) (*Token, error) {
 		}
 		s1.Push(t)
 	}
+	s1.reverse()
 	s2 := NewStack()
 	// 再算低优先级 + -
 	for s1.len() > 0 {
