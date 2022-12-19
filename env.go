@@ -56,7 +56,7 @@ func NewFormulaEnv(name, desc string, argsType []string, rt string) *formulaEnv 
 // newWrapper 新建Wrapper
 func newWrapper(e Environment) *Wrapper {
 	w := &Wrapper{
-		env:   e,
+		Env:   e,
 		fEnv:  map[string]*formulaEnv{},
 		fDict: formulaDict,
 	}
@@ -71,7 +71,7 @@ func newWrapper(e Environment) *Wrapper {
 
 // Wrapper 包装环境
 type Wrapper struct {
-	env   Environment            // 运行环境变量
+	Env   Environment            // 运行环境变量
 	fEnv  map[string]*formulaEnv // 公式环境变量字典 map[FORMULA_NAME] -- >
 	fDict map[string]formula     // 公式字典
 }
@@ -97,8 +97,8 @@ func (w Wrapper) getFormulaFunc(formulaName string) formula {
 // merge 合并环境变量
 // 以w2为准
 func (w *Wrapper) merge(w2 *Wrapper) {
-	if w2.env != nil {
-		w.env = w2.env
+	if w2.Env != nil {
+		w.Env = w2.Env
 	}
 	if len(w2.fEnv) > 0 {
 		if w.fEnv == nil {

@@ -5,7 +5,7 @@ import "strings"
 type fISBLANK struct{}
 
 // fISBLANK(待判空的字符串)
-func (f *fISBLANK) invoke(env *Wrapper, args ...*Token) (*Token, error) {
+func (f *fISBLANK) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	arg := args[0]
 	strValue := arg.getStringValue()
 	if len(args) > 1 {
@@ -21,7 +21,7 @@ func (f *fISBLANK) invoke(env *Wrapper, args ...*Token) (*Token, error) {
 // fINCLUDESTR判断字符串是否属于数组
 type fINCLUDESTR struct{}
 
-func (f *fINCLUDESTR) invoke(env *Wrapper, args ...*Token) (*Token, error) {
+func (f *fINCLUDESTR) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	if len(args) <= 1 {
 		return newBoolToken(false), nil
 	}
@@ -36,7 +36,7 @@ func (f *fINCLUDESTR) invoke(env *Wrapper, args ...*Token) (*Token, error) {
 // fNINCLUDESTR fINCLUDESTR判断字符串是否不属于数组
 type fNINCLUDESTR struct{}
 
-func (f *fNINCLUDESTR) invoke(env *Wrapper, args ...*Token) (*Token, error) {
+func (f *fNINCLUDESTR) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	if len(args) <= 1 {
 		return newBoolToken(true), nil
 	}
@@ -51,7 +51,7 @@ func (f *fNINCLUDESTR) invoke(env *Wrapper, args ...*Token) (*Token, error) {
 // fMid MID(字符串,起始位置,取子符串位数) 起始位置包含 小于1按1处理
 type fMid struct{}
 
-func (f *fMid) invoke(env *Wrapper, args ...*Token) (*Token, error) {
+func (f *fMid) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	str := args[0].getStringValue()
 	if str == "" {
 		return newStringToken(str), nil
@@ -79,7 +79,7 @@ func (f *fMid) invoke(env *Wrapper, args ...*Token) (*Token, error) {
 // fLeft LEFT(字符串,取子符串位数)
 type fLeft struct{}
 
-func (f *fLeft) invoke(env *Wrapper, args ...*Token) (*Token, error) {
+func (f *fLeft) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	str := args[0].getStringValue()
 	if str == "" {
 		return newStringToken(""), nil
@@ -96,7 +96,7 @@ func (f *fLeft) invoke(env *Wrapper, args ...*Token) (*Token, error) {
 
 type fRight struct{}
 
-func (f *fRight) invoke(env *Wrapper, args ...*Token) (*Token, error) {
+func (f *fRight) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	str := args[0].getStringValue()
 	if str == "" {
 		return newStringToken(""), nil

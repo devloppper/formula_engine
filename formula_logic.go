@@ -15,43 +15,43 @@ const (
 
 type fGTE struct{}
 
-func (g fGTE) invoke(env *Wrapper, args ...*Token) (*Token, error) {
+func (g fGTE) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	return compare(args[0], args[1], gte)
 }
 
 type fLTE struct{}
 
-func (l fLTE) invoke(env *Wrapper, args ...*Token) (*Token, error) {
+func (l fLTE) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	return compare(args[0], args[1], lte)
 }
 
 type fLT struct{}
 
-func (f fLT) invoke(env *Wrapper, args ...*Token) (*Token, error) {
+func (f fLT) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	return compare(args[0], args[1], lt)
 }
 
 type fGT struct{}
 
-func (f fGT) invoke(env *Wrapper, args ...*Token) (*Token, error) {
+func (f fGT) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	return compare(args[0], args[1], gt)
 }
 
 type fEQ struct{}
 
-func (f fEQ) invoke(env *Wrapper, args ...*Token) (*Token, error) {
+func (f fEQ) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	return compare(args[0], args[1], eq)
 }
 
 type fNEQ struct{}
 
-func (f fNEQ) invoke(env *Wrapper, args ...*Token) (*Token, error) {
+func (f fNEQ) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	return compare(args[0], args[1], neq)
 }
 
 type fIF struct{}
 
-func (f fIF) invoke(env *Wrapper, args ...*Token) (*Token, error) {
+func (f fIF) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	if args[0].getBoolValue() == true {
 		return args[1].copy(), nil
 	}

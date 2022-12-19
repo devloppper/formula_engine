@@ -11,7 +11,7 @@ const (
 
 type fLike struct{}
 
-func (f fLike) invoke(env *Wrapper, args ...*Token) (*Token, error) {
+func (f fLike) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	pattern := args[0].getStringValue()
 	origin := args[1].getStringValue()
 	if pattern == "" {
@@ -45,7 +45,7 @@ func (f fLike) invoke(env *Wrapper, args ...*Token) (*Token, error) {
 
 type fHasSubStr struct{}
 
-func (f fHasSubStr) invoke(env *Wrapper, args ...*Token) (*Token, error) {
+func (f fHasSubStr) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	bigStr := args[0].getStringValue()
 	smallStr := args[1].getStringValue()
 	return newBoolToken(strings.Contains(bigStr, smallStr)), nil

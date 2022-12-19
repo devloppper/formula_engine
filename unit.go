@@ -186,19 +186,19 @@ func (uf unitFormula) calc(w *Wrapper, args ...*Token) (*Token, error) {
 	}
 	// String类型为q潜在变量
 	originDict := map[*Token]interface{}{}
-	if w.env != nil {
+	if w.Env != nil {
 		for _, arg := range args {
 			if arg.TokenType == String {
 				originDict[arg] = arg.Value
 				v := fmt.Sprintf("%v", arg.Value)
-				if w.env.GetEnvValue(v) != nil {
-					arg.Value = w.env.GetEnvValue(v)
+				if w.Env.GetEnvValue(v) != nil {
+					arg.Value = w.Env.GetEnvValue(v)
 				}
 			}
 		}
 	}
 	// 计算
-	result, err := fFunc.invoke(w, args...)
+	result, err := fFunc.Invoke(w, args...)
 	if err != nil {
 		return nil, err
 	}

@@ -2,8 +2,8 @@ package formula_engine
 
 type fConvert struct{}
 
-// CONVERTSTR 强转公式
-func (c fConvert) invoke(env *Wrapper, args ...*Token) (*Token, error) {
+// Invoke CONVERTSTR 强转公式
+func (c fConvert) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	result := ""
 	for _, arg := range args {
 		if arg == nil {
