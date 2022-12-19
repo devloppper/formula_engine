@@ -43,6 +43,16 @@ type formulaEnv struct {
 	ReturnType  string   `json:"return_type"`
 }
 
+// NewFormulaEnv 创建一个公式环境
+func NewFormulaEnv(name, desc string, argsType []string, rt string) *formulaEnv {
+	return &formulaEnv{
+		FormulaName: name,
+		FormulaDesc: desc,
+		ArgsType:    argsType,
+		ReturnType:  rt,
+	}
+}
+
 // newWrapper 新建wrapper
 func newWrapper(e Environment) *wrapper {
 	w := &wrapper{
@@ -82,4 +92,53 @@ func (w wrapper) getFormulaFunc(formulaName string) formula {
 	}
 	upFName := strings.ToUpper(formulaName)
 	return w.fDict[upFName]
+}
+
+// merge 合并环境变量
+// 以w2为准
+func (w *wrapper) merge(w2 *wrapper) {
+	if w2.env != nil {
+		w.env = w2.env
+	}
+	if len(w2.fEnv) > 0 {
+		if w.fEnv == nil {
+			w.fEnv = map[string]*formulaEnv{}
+		}
+		for k, v := range w2.fEnv {
+			w.fEnv[k] = v
+		}
+	}
+	if len(w2.fDict) > 0 {
+		if w.fDict == nil {
+			w.fDict = map[string]formula{}
+		}
+		for k, v := range w2.fDict {
+			w.fDict[k] = v
+		}
+	}
+}
+
+type WrapperBuilder struct {
+	*wrapper
+}
+
+// AddFormula 添加一个公式
+func (wb *WrapperBuilder) AddFormula(fEnv *formulaEnv, f formula) {
+	if wb.wrapper == nil {
+		wb.wrapper = &wrapper{
+			fEnv:  map[string]*formulaEnv{},
+			fDict: map[string]formula{},
+		}
+	}
+	fEnv.FormulaName = strings.ToUpper(fEnv.FormulaName)
+	wb.wrapper.fEnv[fEnv.FormulaName] = fEnv
+	wb.wrapper.fDict[fEnv.FormulaName] = f
+}
+
+// Build 构建环境包裹
+func (wb WrapperBuilder) Build() *wrapper {
+	if wb.wrapper == nil {
+		return &wrapper{}
+	}
+	return wb.wrapper
 }

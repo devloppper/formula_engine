@@ -37,9 +37,17 @@ func NewExpression(str string) (*Expression, error) {
 	return &Expression{root: root}, nil
 }
 
+// WithOtherWrapper 添加额外的配置信息
+func (exp *Expression) WithOtherWrapper(w *wrapper) {
+	exp.wrapper = w
+}
+
 // Invoke 执行
 func (exp Expression) Invoke(e Environment) (interface{}, error) {
 	w := newWrapper(e)
+	if exp.wrapper != nil {
+		w.merge(exp.wrapper)
+	}
 	calc, err := exp.root.calc(w, e)
 	if err != nil {
 		return nil, err

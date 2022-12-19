@@ -21,23 +21,28 @@ func (fc fakeCell) GetEnvValue(str string) interface{} {
 	}
 }
 
-func TestNewExpression2(t *testing.T) {
-	exp, err := NewExpression("{V1}+{V2}")
-	if err != nil {
-		fmt.Println(err)
-	}
-	// 模拟单元格中的变量
-	s := &scope{
-		data: map[string]interface{}{
-			"V1": 123.4,
-		},
-	}
-	result, err := exp.Invoke(s)
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Printf("Result is:%v \n", result)
+type SayHello struct {
+}
 
+func (sh SayHello) invoke(env *wrapper, args ...*Token) (*Token, error) {
+	str := args[0].getStringValue()
+	return newStringToken(fmt.Sprintf("Hello %s", str)), nil
+}
+
+func TestNewExpression2(t *testing.T) {
+	wb := &WrapperBuilder{}
+	wb.AddFormula(NewFormulaEnv("SAYHELLO", "", []string{ArgIntegerType}, ArgStringType), SayHello{})
+	w := wb.Build()
+	expression, err := NewExpression("SAYHELLO(My)")
+	if err != nil {
+		panic(err)
+	}
+	expression.WithOtherWrapper(w)
+	invoke, err := expression.Invoke(&scope{})
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(invoke)
 }
 
 func TestGt(t *testing.T) {
