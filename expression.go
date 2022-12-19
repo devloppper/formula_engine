@@ -18,7 +18,7 @@ var splitDict = map[rune]bool{
 
 type Expression struct {
 	root *unit
-	*wrapper
+	*Wrapper
 }
 
 // NewExpression 新建一个运算表达式
@@ -38,15 +38,15 @@ func NewExpression(str string) (*Expression, error) {
 }
 
 // WithOtherWrapper 添加额外的配置信息
-func (exp *Expression) WithOtherWrapper(w *wrapper) {
-	exp.wrapper = w
+func (exp *Expression) WithOtherWrapper(w *Wrapper) {
+	exp.Wrapper = w
 }
 
 // Invoke 执行
 func (exp Expression) Invoke(e Environment) (interface{}, error) {
 	w := newWrapper(e)
-	if exp.wrapper != nil {
-		w.merge(exp.wrapper)
+	if exp.Wrapper != nil {
+		w.merge(exp.Wrapper)
 	}
 	calc, err := exp.root.calc(w, e)
 	if err != nil {
@@ -70,9 +70,9 @@ func (exp Expression) Invoke(e Environment) (interface{}, error) {
 	return calc.Value, nil
 }
 
-// wrapperBaseFunc 包装BASE函数
+// WrapperBaseFunc 包装BASE函数
 // + ( 1 + 2)  ---> + BASE(1 + 2)
-func wrapperBaseFunc(exp string) string {
+func WrapperBaseFunc(exp string) string {
 	markPoint := make([]int, 0)
 	lastIsCalcSign := false
 	for index, r := range exp {

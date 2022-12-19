@@ -72,7 +72,7 @@ func newUnit(str string, u *unit) error {
 }
 
 // calc 计算节点值
-func (u unit) calc(w *wrapper, e Environment) (*Token, error) {
+func (u unit) calc(w *Wrapper, e Environment) (*Token, error) {
 	if u.unitFormula != nil {
 		exp := make([]*Token, 0)
 		if len(u.params) > 0 {
@@ -173,7 +173,7 @@ type unitFormula struct {
 }
 
 // calc 公式计算
-func (uf unitFormula) calc(w *wrapper, args ...*Token) (*Token, error) {
+func (uf unitFormula) calc(w *Wrapper, args ...*Token) (*Token, error) {
 	// 查询环境变量
 	fEnv := w.getFormulaEnv(uf.FormulaName)
 	fFunc := w.getFormulaFunc(uf.FormulaName)

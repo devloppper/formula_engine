@@ -24,7 +24,7 @@ func (fc fakeCell) GetEnvValue(str string) interface{} {
 type SayHello struct {
 }
 
-func (sh SayHello) invoke(env *wrapper, args ...*Token) (*Token, error) {
+func (sh SayHello) invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	str := args[0].getStringValue()
 	return newStringToken(fmt.Sprintf("Hello %s", str)), nil
 }
