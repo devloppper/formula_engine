@@ -7,16 +7,16 @@ import (
 )
 
 const (
-	ArgNumberType      = "Number"  // 数值类型
-	ArgIntegerType     = "Integer" // 整数类型
-	ArgStringType      = "String"  // 字符串类型
-	ArgBoolType        = "Bool"    // 布尔类型
-	ArgAnyType         = "Any"     // 任意类型
-	ArgNumberLockType  = "Number"  // 数值类型 锁定
-	ArgIntegerLockType = "Integer" // 整数类型 锁定
-	ArgStringLockType  = "String"  // 字符串类型 锁定
-	ArgBoolLockType    = "Bool"    // 布尔类型 锁定
-	ArgAnyLockType     = "Any"     // 任意类型 锁定
+	ArgNumberType      = "Number"        // 数值类型
+	ArgIntegerType     = "Integer"       // 整数类型
+	ArgStringType      = "String"        // 字符串类型
+	ArgBoolType        = "Bool"          // 布尔类型
+	ArgAnyType         = "Any"           // 任意类型
+	ArgNumberLockType  = "Number[LOCK]"  // 数值类型 锁定
+	ArgIntegerLockType = "Integer[LOCK]" // 整数类型 锁定
+	ArgStringLockType  = "String[LOCK]"  // 字符串类型 锁定
+	ArgBoolLockType    = "Bool[LOCK]"    // 布尔类型 锁定
+	ArgAnyLockType     = "Any[LOCK]"     // 任意类型 锁定
 )
 
 var formulaConfigList []*formulaEnv
