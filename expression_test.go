@@ -31,14 +31,19 @@ func (sh SayHello) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 
 func TestNewExpression2(t *testing.T) {
 	wb := &WrapperBuilder{}
-	wb.AddFormula(NewFormulaEnv("SAYHELLO", "", []string{ArgIntegerType}, ArgStringType), SayHello{})
+	wb.AddFormula(NewFormulaEnv("SAYHELLO", "", []string{fmt.Sprintf("%s[LOCK]", ArgStringType)}, ArgStringType), SayHello{})
 	w := wb.Build()
 	expression, err := NewExpression("SAYHELLO(My)")
 	if err != nil {
 		panic(err)
 	}
 	expression.WithOtherWrapper(w)
-	invoke, err := expression.Invoke(&scope{})
+	s := &scope{
+		data: map[string]interface{}{
+			"My": "You",
+		},
+	}
+	invoke, err := expression.Invoke(s)
 	if err != nil {
 		panic(err)
 	}

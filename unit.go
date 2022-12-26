@@ -188,7 +188,7 @@ func (uf unitFormula) calc(w *Wrapper, args ...*Token) (*Token, error) {
 	originDict := map[*Token]interface{}{}
 	if w.Env != nil {
 		for _, arg := range args {
-			if arg.TokenType == String {
+			if arg.lockValue == false && arg.TokenType == String {
 				originDict[arg] = arg.Value
 				v := fmt.Sprintf("%v", arg.Value)
 				if w.Env.GetEnvValue(v) != nil {
@@ -234,6 +234,12 @@ func (uf unitFormula) checkParams(fEnv *formulaEnv, args ...*Token) error {
 				break
 			}
 		}
+		lockToken := false
+		// 锁定条件 不会替换值
+		if strings.HasSuffix(argType, "[LOCK]") {
+			argType = argType[:len(argType)-6]
+			lockToken = true
+		}
 		arg := args[argIndex]
 		if flexArg == false {
 			if argType == ArgStringType {
@@ -244,6 +250,7 @@ func (uf unitFormula) checkParams(fEnv *formulaEnv, args ...*Token) error {
 					return errors.New(fmt.Sprintf("formula:%s need arg type:%s But actual it is %s", uf.FormulaName, argType, arg.TokenType.getStr()))
 				}
 			}
+			arg.lockValue = lockToken
 		} else {
 			for i := argIndex; i < len(args); i++ {
 				arg = args[i]
@@ -255,6 +262,7 @@ func (uf unitFormula) checkParams(fEnv *formulaEnv, args ...*Token) error {
 						return errors.New(fmt.Sprintf("formula:%s need arg type:%s But actual it is %s", uf.FormulaName, argType, arg.TokenType.getStr()))
 					}
 				}
+				arg.lockValue = lockToken
 			}
 			break
 		}

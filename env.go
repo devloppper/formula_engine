@@ -7,11 +7,16 @@ import (
 )
 
 const (
-	ArgNumberType  = "Number"  // 数值类型
-	ArgIntegerType = "Integer" // 整数类型
-	ArgStringType  = "String"  // 字符串类型
-	ArgBoolType    = "Bool"    // 布尔类型
-	ArgAnyType     = "Any"     // 任意类型
+	ArgNumberType      = "Number"  // 数值类型
+	ArgIntegerType     = "Integer" // 整数类型
+	ArgStringType      = "String"  // 字符串类型
+	ArgBoolType        = "Bool"    // 布尔类型
+	ArgAnyType         = "Any"     // 任意类型
+	ArgNumberLockType  = "Number"  // 数值类型 锁定
+	ArgIntegerLockType = "Integer" // 整数类型 锁定
+	ArgStringLockType  = "String"  // 字符串类型 锁定
+	ArgBoolLockType    = "Bool"    // 布尔类型 锁定
+	ArgAnyLockType     = "Any"     // 任意类型 锁定
 )
 
 var formulaConfigList []*formulaEnv
@@ -41,6 +46,7 @@ type formulaEnv struct {
 	FormulaDesc string   `json:"formula_desc"`
 	ArgsType    []string `json:"args_type"`
 	ReturnType  string   `json:"return_type"`
+	LockDim     []bool   `json:""`
 }
 
 // NewFormulaEnv 创建一个公式环境

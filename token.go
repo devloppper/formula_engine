@@ -30,7 +30,8 @@ const (
 // Token 元素
 type Token struct {
 	TokenType
-	Value interface{}
+	Value     interface{}
+	lockValue bool
 }
 
 // newToken 新建Token
