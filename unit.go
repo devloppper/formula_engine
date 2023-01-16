@@ -309,8 +309,8 @@ func calcStack(s *stack) (*Token, error) {
 	for s.len() > 0 {
 		t := s.Pop()
 		if t.TokenType == Mul || t.TokenType == Mod || t.TokenType == Div {
-			lt := s.Pop()
-			nt := s1.Pop()
+			lt := s1.Pop()
+			nt := s.Pop()
 			if (lt.TokenType != Number && lt.TokenType != Integer) || (nt.TokenType != Number && nt.TokenType != Integer) {
 				return nil, errors.New("* / % need two Number")
 			}
