@@ -40,12 +40,20 @@ func (f fGT) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 type fEQ struct{}
 
 func (f fEQ) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
+	// 如果其中一个是布尔类型，则就全部用布尔类型
+	if args[0].TokenType == Bool || args[1].TokenType == Bool {
+		return newBoolToken(args[0].getBoolValue() == args[1].getBoolValue()), nil
+	}
 	return compare(args[0], args[1], eq)
 }
 
 type fNEQ struct{}
 
 func (f fNEQ) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
+	// 如果其中一个是布尔类型，则就全部用布尔类型
+	if args[0].TokenType == Bool || args[1].TokenType == Bool {
+		return newBoolToken(args[0].getBoolValue() != args[1].getBoolValue()), nil
+	}
 	return compare(args[0], args[1], neq)
 }
 
