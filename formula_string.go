@@ -28,8 +28,7 @@ func (f fLike) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	if pattern[startPos] == commonSign && pattern[endPos] == commonSign {
 		result = strings.Contains(origin, realPattern)
 	} else if pattern[startPos] == commonSign {
-		index := strings.LastIndex(origin, realPattern)
-		result = index == len(origin)-len(realPattern)
+		result = strings.HasSuffix(origin, realPattern)
 	} else if pattern[endPos] == commonSign {
 		// 正序匹配字符串
 		for index, c := range realPattern {
