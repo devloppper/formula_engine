@@ -1,6 +1,8 @@
 package formula_engine
 
-import "strings"
+import (
+	"strings"
+)
 
 type fISBLANK struct{}
 
@@ -109,4 +111,11 @@ func (f *fRight) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 		return newStringToken(str), nil
 	}
 	return newStringToken(str[len(str)-subLen:]), nil
+}
+
+type fLen struct{}
+
+func (f *fLen) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
+	str := args[0].getStringValue()
+	return newIntToken(int64(len(str))), nil
 }

@@ -28,6 +28,7 @@ var formulaDict = map[string]formula{
 	"RIGHT":       &fRight{},
 	"IF":          &fIF{},
 	"CONVERTSTR":  &fConvert{},
+	"LEN":         &fLen{},
 }
 
 // formula 公式

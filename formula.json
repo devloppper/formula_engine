@@ -162,5 +162,13 @@
       "...Any"
     ],
     "return_type": "String"
+  },
+  {
+    "formula_name": "LEN",
+    "formula_desc": "LEN(String) 取长度",
+    "args_type": [
+      "String"
+    ],
+    "return_type": "Integer"
   }
 ]
