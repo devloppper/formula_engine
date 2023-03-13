@@ -32,7 +32,7 @@ func (f fLike) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	} else if pattern[endPos] == commonSign {
 		// 正序匹配字符串
 		for index, c := range realPattern {
-			if c != rune(origin[index]) {
+			if index >= len(origin) || c != rune(origin[index]) {
 				result = false
 			}
 		}
