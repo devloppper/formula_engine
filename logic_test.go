@@ -19,3 +19,18 @@ func TestIf(t *testing.T) {
 	}
 	fmt.Printf("%v", result)
 }
+
+func TestMin(t *testing.T) {
+	str := "MIN(ARRAY_SPLIT($fs))"
+	expression, err := NewExpression(str)
+	if err != nil {
+		panic(err)
+	}
+	env := NewWrapperEnv(nil)
+	env.AddEnv("$fs", "d, a,b,c")
+	result, err := expression.Invoke(env)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("%v\n", result)
+}

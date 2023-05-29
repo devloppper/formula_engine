@@ -23,14 +23,15 @@ func (s scope) GetEnvValue(str string) interface{} {
 }
 
 func TestIsBlank(t *testing.T) {
-	str := "ISBLANK(ATTR_VALUE)"
+	str := "LIKE(ATTR_VALUE,CONVERTSTR(ENGINE))"
 	expression, err := NewExpression(str)
 	if err != nil {
 		panic(err)
 	}
 	env := scope{
 		data: map[string]interface{}{
-			"ATTR_VALUE": " 1",
+			"ATTR_VALUE": "ENGINE",
+			"ENGINE":     "",
 		},
 	}
 	shouldBeTrue, err := expression.Invoke(env)
@@ -157,6 +158,23 @@ func TestConvert(t *testing.T) {
 		panic(err)
 	}
 	invoke, err := expression.Invoke(nil)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(invoke)
+}
+
+func TestArraySplit(t *testing.T) {
+	str := "ARRAY_SPLIT($fs)"
+	env := &wrapperEnv{
+		data: map[string]interface{}{},
+	}
+	env.AddEnv("$fs", "hello, world")
+	expression, err := NewExpression(str)
+	if err != nil {
+		panic(err)
+	}
+	invoke, err := expression.Invoke(env)
 	if err != nil {
 		panic(err)
 	}

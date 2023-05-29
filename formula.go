@@ -29,6 +29,8 @@ var formulaDict = map[string]formula{
 	"IF":          &fIF{},
 	"CONVERTSTR":  &fConvert{},
 	"LEN":         &fLen{},
+	"ARRAY_SPLIT": &fArraySplit{},
+	"MIN":         &fMin{},
 }
 
 // formula 公式

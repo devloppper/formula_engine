@@ -1,6 +1,9 @@
 package formula_engine
 
-import "github.com/shopspring/decimal"
+import (
+	"github.com/shopspring/decimal"
+	"sort"
+)
 
 type compareType byte
 
@@ -64,6 +67,27 @@ func (f fIF) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 		return args[1].copy(), nil
 	}
 	return args[2].copy(), nil
+}
+
+type fMin struct{}
+
+func (f fMin) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
+	tokens := make([]*Token, 0)
+	for _, token := range args {
+		if token.IsArray == false {
+			tokens = append(tokens, token)
+		} else {
+			tokens = append(tokens, token.splitArrayToken()...)
+		}
+	}
+	sort.Slice(tokens, func(i, j int) bool {
+		token, err := compare(tokens[i], tokens[j], lt)
+		if err != nil {
+			return false
+		}
+		return token.getBoolValue()
+	})
+	return tokens[0], nil
 }
 
 // compare 比较

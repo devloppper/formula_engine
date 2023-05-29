@@ -52,8 +52,12 @@ func (exp Expression) Invoke(e Environment) (interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
-	if calc == nil || calc.Value == nil {
+	if calc == nil {
 		return nil, nil
+	} else {
+		if (calc.IsArray == true && calc.ListValue == nil) || (calc.IsArray == false && calc.Value == nil) {
+			return nil, nil
+		}
 	}
 	if calc.TokenType == String && e != nil {
 		// 可能是潜在变量
@@ -66,6 +70,9 @@ func (exp Expression) Invoke(e Environment) (interface{}, error) {
 		if v, ok := calc.Value.(decimal.Decimal); ok == true {
 			return v.String(), nil
 		}
+	}
+	if calc.IsArray {
+		return calc.ListValue, nil
 	}
 	return calc.Value, nil
 }

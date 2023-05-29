@@ -53,7 +53,7 @@ func TestNewExpression2(t *testing.T) {
 func TestGt(t *testing.T) {
 	exp, _ := NewExpression("GT(ATTR_VALUE,202012)")
 	w := NewWrapperEnv(nil)
-	w.AddEnv("ATTR_VALUE", " ")
+	w.AddEnv("ATTR_VALUE", "2022222")
 	result, _ := exp.Invoke(w)
 	fmt.Println(result)
 }

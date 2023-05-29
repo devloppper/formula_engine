@@ -206,7 +206,7 @@ func (uf unitFormula) calc(w *Wrapper, args ...*Token) (*Token, error) {
 	for t, v := range originDict {
 		t.Value = v
 	}
-	if compareArgType(fEnv.ReturnType, result.TokenType) == false {
+	if compareArgType(fEnv.ReturnType, result.TokenType, result.IsArray) == false {
 		return nil, errors.New(fmt.Sprintf("formula:%s return %s but actual it is %s", uf.FormulaName, fEnv.ReturnType, result.TokenType.getStr()))
 	}
 	return result, nil
@@ -246,7 +246,7 @@ func (uf unitFormula) checkParams(fEnv *formulaEnv, args ...*Token) error {
 				arg.Value = arg.getStringValue()
 				arg.TokenType = String
 			} else {
-				if result := compareArgType(argType, arg.TokenType); result != true {
+				if result := compareArgType(argType, arg.TokenType, arg.IsArray); result != true {
 					return errors.New(fmt.Sprintf("formula:%s need arg type:%s But actual it is %s", uf.FormulaName, argType, arg.TokenType.getStr()))
 				}
 			}
@@ -258,7 +258,7 @@ func (uf unitFormula) checkParams(fEnv *formulaEnv, args ...*Token) error {
 					arg.Value = arg.getStringValue()
 					arg.TokenType = String
 				} else {
-					if result := compareArgType(argType, arg.TokenType); result != true {
+					if result := compareArgType(argType, arg.TokenType, arg.IsArray); result != true {
 						return errors.New(fmt.Sprintf("formula:%s need arg type:%s But actual it is %s", uf.FormulaName, argType, arg.TokenType.getStr()))
 					}
 				}

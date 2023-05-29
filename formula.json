@@ -170,5 +170,21 @@
       "String"
     ],
     "return_type": "Integer"
+  },
+  {
+    "formula_name": "MIN",
+    "formula_desc": "MIN(...ANY)返回集合中最小的一个【转String类型进行比较】",
+    "args_type": [
+      "...Any"
+    ],
+    "return_type": "Any"
+  },
+  {
+    "formula_name": "ARRAY_SPLIT",
+    "formula_desc": "ARRAY_SPLIT(String) 数组默认以 , 隔开，因此本方法将字符串按照 , 分割为数组",
+    "args_type": [
+      "String"
+    ],
+    "return_type": "ArrayString"
   }
 ]

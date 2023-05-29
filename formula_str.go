@@ -119,3 +119,14 @@ func (f *fLen) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	str := args[0].getStringValue()
 	return newIntToken(int64(len(str))), nil
 }
+
+type fArraySplit struct{}
+
+func (f *fArraySplit) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
+	str := args[0].getStringValue()
+	token := newArrayToken(String)
+	for _, i := range strings.Split(str, ",") {
+		token.ListValue = append(token.ListValue, i)
+	}
+	return token, nil
+}

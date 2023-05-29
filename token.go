@@ -30,7 +30,9 @@ const (
 // Token 元素
 type Token struct {
 	TokenType
+	IsArray   bool
 	Value     interface{}
+	ListValue []interface{}
 	lockValue bool
 }
 
@@ -122,6 +124,14 @@ func newStringToken(v string) *Token {
 	}
 }
 
+// newArrayToken 新建数组Token
+func newArrayToken(tokenType TokenType) *Token {
+	return &Token{
+		TokenType: tokenType,
+		IsArray:   true,
+	}
+}
+
 // getFloatValue 获取浮点数值
 func (t Token) getFloatValue() decimal.Decimal {
 	if t.Value == nil {
@@ -165,6 +175,27 @@ func (t Token) getStringValue() string {
 	return ""
 }
 
+// getStringList 获取字符串列表
+func (t Token) getStringList() []string {
+	if t.ListValue == nil {
+		return nil
+	}
+	result := make([]string, 0)
+	for _, value := range t.ListValue {
+		if v, ok := value.(string); ok == false {
+			if v2, ok2 := value.(int64); ok2 == true {
+				result = append(result, fmt.Sprintf("%d", v2))
+			}
+			if v2, ok2 := value.(float64); ok2 == true {
+				result = append(result, fmt.Sprintf("%f", v2))
+			}
+		} else {
+			result = append(result, v)
+		}
+	}
+	return nil
+}
+
 // getBoolValue 获取布尔值
 func (t Token) getBoolValue() bool {
 	if t.Value == nil {
@@ -177,6 +208,23 @@ func (t Token) getBoolValue() bool {
 	}
 }
 
+// splitArrayToken 解析数组类型token
+func (t *Token) splitArrayToken() []*Token {
+	if t.IsArray == false {
+		return []*Token{t}
+	} else {
+		tokens := make([]*Token, 0)
+		for _, v := range t.ListValue {
+			tokens = append(tokens, &Token{
+				TokenType: t.TokenType,
+				Value:     v,
+				lockValue: t.lockValue,
+			})
+		}
+		return tokens
+	}
+}
+
 func (t Token) copy() *Token {
 	return &Token{
 		TokenType: t.TokenType,
@@ -185,7 +233,13 @@ func (t Token) copy() *Token {
 }
 
 // compareArgType 比较参数类型
-func compareArgType(argType string, tokenType TokenType) bool {
+func compareArgType(argType string, tokenType TokenType, tokenIsArray bool) bool {
+	if strings.HasPrefix(argType, "Array") {
+		if tokenIsArray == false {
+			return false
+		}
+		argType = argType[5:]
+	}
 	switch argType {
 	case ArgNumberType:
 		return tokenType == Number || tokenType == Integer
