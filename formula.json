@@ -186,5 +186,13 @@
       "String"
     ],
     "return_type": "ArrayString"
+  },
+  {
+    "formula_name": "CONCAT",
+    "formula_desc": "CONCAT(...ANY) 将所有的内容拼接为字符串",
+    "args_type": [
+      "String"
+    ],
+    "return_type": "String"
   }
 ]

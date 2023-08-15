@@ -181,6 +181,19 @@ func TestArraySplit(t *testing.T) {
 	fmt.Println(invoke)
 }
 
+func TestConcat(t *testing.T) {
+	str := "CONCAT(JAY,HOO)"
+	expression, err := NewExpression(str)
+	if err != nil {
+		panic(err)
+	}
+	invoke, err := expression.Invoke(nil)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(invoke)
+}
+
 type wrapperEnv struct {
 	parentEnv Environment
 	data      map[string]interface{}

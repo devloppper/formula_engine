@@ -130,3 +130,14 @@ func (f *fArraySplit) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	}
 	return token, nil
 }
+
+// fConcat 匹配函数
+type fConcat struct{}
+
+func (f *fConcat) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
+	sb := strings.Builder{}
+	for _, arg := range args {
+		sb.WriteString(arg.getStringValue())
+	}
+	return newStringToken(sb.String()), nil
+}

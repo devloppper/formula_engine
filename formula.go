@@ -31,6 +31,7 @@ var formulaDict = map[string]formula{
 	"LEN":         &fLen{},
 	"ARRAY_SPLIT": &fArraySplit{},
 	"MIN":         &fMin{},
+	"CONCAT":      &fConcat{},
 }
 
 // formula 公式
