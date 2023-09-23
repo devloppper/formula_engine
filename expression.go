@@ -43,7 +43,13 @@ func (exp *Expression) WithOtherWrapper(w *Wrapper) {
 }
 
 // Invoke 执行
-func (exp Expression) Invoke(e Environment) (interface{}, error) {
+func (exp Expression) Invoke(e Environment) (val interface{}, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = r.(error)
+			val = nil
+		}
+	}()
 	w := newWrapper(e)
 	if exp.Wrapper != nil {
 		w.merge(exp.Wrapper)
