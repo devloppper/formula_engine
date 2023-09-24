@@ -35,6 +35,21 @@ func init() {
 	}
 }
 
+func AddFormula(w *Wrapper) {
+	if w == nil {
+		return
+	}
+	for _, fEnv := range w.fEnv {
+		if w.fDict[fEnv.FormulaName] != nil {
+			if formulaDict[fEnv.FormulaName] == nil {
+				formulaConfigList = append(formulaConfigList, fEnv)
+				formulaDict[fEnv.FormulaName] = w.fDict[fEnv.FormulaName]
+				continue
+			}
+		}
+	}
+}
+
 // Environment 环境
 type Environment interface {
 	GetEnvValue(str string) interface{}
@@ -104,7 +119,7 @@ func (w Wrapper) getFormulaFunc(formulaName string) formula {
 // 以w2为准
 func (w *Wrapper) merge(w2 *Wrapper) {
 	if w2.Env != nil {
-		w.Env = w2.Env
+		// w.Env = w2.Env
 	}
 	if len(w2.fEnv) > 0 {
 		if w.fEnv == nil {

@@ -2,6 +2,7 @@ package formula_engine
 
 import (
 	"fmt"
+	"sync"
 	"testing"
 )
 
@@ -136,19 +137,43 @@ func TestLEFT(t *testing.T) {
 	fmt.Println(result)
 }
 
-func TestRIGHT(t *testing.T) {
-	str := "RIGHT($fs, 9)"
-	expression, err := NewExpression(str)
-	if err != nil {
-		panic(err)
+type HelloFormula struct {
+}
+
+func (h HelloFormula) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
+	return newStringToken(fmt.Sprintf("Hello %s", args[0].getStringValue())), nil
+}
+
+func TestCurrentCalc(t *testing.T) {
+	builder := WrapperBuilder{}
+	fEnv := NewFormulaEnv("HELLO", "say Hello", []string{ArgStringType}, ArgStringType)
+
+	builder.AddFormula(fEnv, &HelloFormula{})
+	wg := &sync.WaitGroup{}
+	AddFormula(builder.Build())
+	for i := 0; i < 1000; i++ {
+		wg.Add(1)
+		var this = i
+		go func() {
+			expression, err := NewExpression("HELLO(B)")
+			if err != nil {
+				panic(err)
+			}
+			e := scope{
+				data: map[string]interface{}{
+					"B": fmt.Sprintf("%d", this),
+				},
+			}
+			invoke, err := expression.Invoke(e)
+			if err != nil {
+				panic(e)
+			}
+			fmt.Println(invoke)
+			wg.Done()
+		}()
 	}
-	env := NewWrapperEnv(nil)
-	env.AddEnv("$fs", "HELLO WORLD")
-	result, err := expression.Invoke(env)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(result)
+
+	wg.Wait()
 }
 
 func TestConvert(t *testing.T) {
