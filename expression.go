@@ -51,9 +51,7 @@ func (exp Expression) Invoke(e Environment) (val interface{}, err error) {
 		}
 	}()
 	w := newWrapper(e)
-	if exp.Wrapper != nil {
-		w.merge(exp.Wrapper)
-	}
+	w.pWrapper = exp.Wrapper
 	calc, err := exp.root.calc(w, e)
 	if err != nil {
 		return nil, err

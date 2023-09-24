@@ -95,6 +95,8 @@ type Wrapper struct {
 	Env   Environment            // 运行环境变量
 	fEnv  map[string]*formulaEnv // 公式环境变量字典 map[FORMULA_NAME] -- >
 	fDict map[string]formula     // 公式字典
+
+	pWrapper *Wrapper
 }
 
 // getFormulaEnv 查询公式的环境变量
@@ -103,7 +105,13 @@ func (w Wrapper) getFormulaEnv(formulaName string) *formulaEnv {
 		return nil
 	}
 	upFName := strings.ToUpper(formulaName)
-	return w.fEnv[upFName]
+	if w.fEnv[upFName] != nil {
+		return w.fEnv[upFName]
+	}
+	if w.pWrapper != nil {
+		return w.pWrapper.getFormulaEnv(formulaName)
+	}
+	return nil
 }
 
 // getFormulaFunc 获取公式字典
@@ -112,7 +120,13 @@ func (w Wrapper) getFormulaFunc(formulaName string) formula {
 		return nil
 	}
 	upFName := strings.ToUpper(formulaName)
-	return w.fDict[upFName]
+	if w.fDict[upFName] != nil {
+		return w.fDict[upFName]
+	}
+	if w.pWrapper != nil {
+		return w.pWrapper.getFormulaFunc(formulaName)
+	}
+	return nil
 }
 
 // merge 合并环境变量

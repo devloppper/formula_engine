@@ -150,8 +150,8 @@ func TestCurrentCalc(t *testing.T) {
 
 	builder.AddFormula(fEnv, &HelloFormula{})
 	wg := &sync.WaitGroup{}
-	AddFormula(builder.Build())
-	for i := 0; i < 1000; i++ {
+	//AddFormula(builder.Build())
+	for i := 0; i < 10000; i++ {
 		wg.Add(1)
 		var this = i
 		go func() {
@@ -159,6 +159,7 @@ func TestCurrentCalc(t *testing.T) {
 			if err != nil {
 				panic(err)
 			}
+			expression.WithOtherWrapper(builder.Build())
 			e := scope{
 				data: map[string]interface{}{
 					"B": fmt.Sprintf("%d", this),
