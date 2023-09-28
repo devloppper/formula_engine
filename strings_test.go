@@ -220,6 +220,21 @@ func TestConcat(t *testing.T) {
 	fmt.Println(invoke)
 }
 
+func TestNumArgs(t *testing.T) {
+	str := "EQ(ATTR_VALUE,0400)"
+	env := wrapperEnv{}
+	env.AddEnv("ATTR_VALUE", "0400")
+	expression, err := NewExpression(str)
+	if err != nil {
+		panic(err)
+	}
+	invoke, err := expression.Invoke(env)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(invoke)
+}
+
 type wrapperEnv struct {
 	parentEnv Environment
 	data      map[string]interface{}
@@ -235,6 +250,9 @@ func NewWrapperEnv(pEnv Environment) *wrapperEnv {
 
 // AddEnv 添加一个环境
 func (we *wrapperEnv) AddEnv(key string, v interface{}) {
+	if we.data == nil {
+		we.data = map[string]interface{}{}
+	}
 	we.data[key] = v
 }
 

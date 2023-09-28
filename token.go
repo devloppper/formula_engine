@@ -34,12 +34,16 @@ type Token struct {
 	Value     interface{}
 	ListValue []interface{}
 	lockValue bool
+
+	schemaV string
 }
 
 // newToken 新建Token
 func newToken(str string) *Token {
 	str = strings.TrimSpace(str)
-	t := &Token{}
+	t := &Token{
+		schemaV: str,
+	}
 	if str == "," {
 		t.TokenType = Separator
 		return t
@@ -159,6 +163,9 @@ func (t Token) getIntValue() int {
 
 // getStringValue 获取字符串值
 func (t Token) getStringValue() string {
+	if t.TokenType != String && t.schemaV != "" {
+		return t.schemaV
+	}
 	if t.Value == nil {
 		return ""
 	}
