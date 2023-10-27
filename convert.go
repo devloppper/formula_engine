@@ -9,26 +9,27 @@ func (c fConvert) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 		if arg == nil {
 			continue
 		}
-		switch arg.TokenType {
-		case Sub:
-			result += "-"
-		case Add:
-			result += "+"
-		case Mul:
-			result += "*"
-		case Div:
-			result += "/"
-		case Mod:
-			result += "%"
-		case RightBracket:
-			result += "("
-		case LeftBracket:
-			result += ")"
-		case Separator:
-			result += ","
-		default:
-			result += GetInterfaceStringValue(arg.Value)
-		}
+		//switch arg.TokenType {
+		//case Sub:
+		//	result += "-"
+		//case Add:
+		//	result += "+"
+		//case Mul:
+		//	result += "*"
+		//case Div:
+		//	result += "/"
+		//case Mod:
+		//	result += "%"
+		//case RightBracket:
+		//	result += "("
+		//case LeftBracket:
+		//	result += ")"
+		//case Separator:
+		//	result += ","
+		//default:
+		//	result += GetInterfaceStringValue(arg.Value)
+		//}
+		result += arg.schemaV
 	}
 	return newStringToken(result), nil
 }
