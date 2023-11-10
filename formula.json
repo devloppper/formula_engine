@@ -194,5 +194,14 @@
       "String"
     ],
     "return_type": "String"
+  },
+  {
+    "formula_name": "ADD",
+    "formula_desc": "文本数字相加",
+    "args_type":[
+      "String",
+      "Integer"
+    ],
+    "return_type": "String"
   }
 ]

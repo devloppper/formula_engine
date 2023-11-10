@@ -1,6 +1,8 @@
 package formula_engine
 
 import (
+	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -140,4 +142,18 @@ func (f *fConcat) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 		sb.WriteString(arg.getStringValue())
 	}
 	return newStringToken(sb.String()), nil
+}
+
+type fAdd struct {
+}
+
+func (f fAdd) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
+	strValue := args[0].getStringValue()
+	parseInt, err := strconv.ParseInt(strValue, 10, 64)
+	if err != nil {
+		return nil, err
+	}
+	deltaValue := args[1].getIntValue()
+	v := parseInt + int64(deltaValue)
+	return newStringToken(fmt.Sprintf("%d", v)), nil
 }
