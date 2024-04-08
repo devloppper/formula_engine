@@ -2,6 +2,7 @@ package formula_engine
 
 import (
 	"fmt"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -38,4 +39,22 @@ func TestMin(t *testing.T) {
 	fmt.Printf("%v\n", result)
 	s := "XREALNAME"[len("XREAL"):]
 	println(s)
+}
+
+func TestAnd(t *testing.T) {
+	str := "IF(AND(EQ(1,1),GT(1,3)), 1,20)"
+	expression, err := NewExpression(str)
+	assert.NoError(t, err)
+	val, err := expression.Invoke(nil)
+	assert.NoError(t, err)
+	fmt.Println(val)
+}
+
+func TestOr(t *testing.T) {
+	str := "IF(OR(EQ(1,1),GT(1,3)), 1,20)"
+	expression, err := NewExpression(str)
+	assert.NoError(t, err)
+	val, err := expression.Invoke(nil)
+	assert.NoError(t, err)
+	fmt.Println(val)
 }

@@ -90,6 +90,27 @@ func (f fMin) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
 	return tokens[0], nil
 }
 
+type fAnd struct{}
+
+func (f fAnd) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
+	for _, arg := range args {
+		if arg.getBoolValue() == false {
+			return newBoolToken(false), nil
+		}
+	}
+	return newBoolToken(true), nil
+}
+
+type fOr struct{}
+
+func (f fOr) Invoke(env *Wrapper, args ...*Token) (*Token, error) {
+	var result = false
+	for _, arg := range args {
+		result = result || arg.getBoolValue()
+	}
+	return newBoolToken(result), nil
+}
+
 // compare 比较
 func compare(v1, v2 *Token, way compareType) (*Token, error) {
 	// 如果其中有一个是String的就全部用String进行判断

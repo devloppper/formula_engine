@@ -33,6 +33,8 @@ var formulaDict = map[string]formula{
 	"MIN":         &fMin{},
 	"CONCAT":      &fConcat{},
 	"ADD":         &fAdd{},
+	"AND":         &fAnd{},
+	"OR":          &fOr{},
 }
 
 // formula 公式

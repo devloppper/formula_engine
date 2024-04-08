@@ -203,5 +203,21 @@
       "Integer"
     ],
     "return_type": "String"
+  },
+  {
+    "formula_name": "AND",
+    "formula_desc": "返回布尔值的且",
+    "args_type": [
+      "...Bool"
+    ],
+    "return_type": "Bool"
+  },
+  {
+    "formula_name": "OR",
+    "formula_desc": "返回布尔值的或",
+    "args_type": [
+      "...Bool"
+    ],
+    "return_type": "Bool"
   }
 ]

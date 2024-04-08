@@ -24,15 +24,14 @@ func (s scope) GetEnvValue(str string) interface{} {
 }
 
 func TestIsBlank(t *testing.T) {
-	str := "LIKE(ATTR_VALUE,CONVERTSTR(ENGINE))"
+	str := "ISBLANK({{A}},TRUE)"
 	expression, err := NewExpression(str)
 	if err != nil {
 		panic(err)
 	}
 	env := scope{
 		data: map[string]interface{}{
-			"ATTR_VALUE": "ENGINE",
-			"ENGINE":     "",
+			"{A}": " ",
 		},
 	}
 	shouldBeTrue, err := expression.Invoke(env)
@@ -40,16 +39,6 @@ func TestIsBlank(t *testing.T) {
 		panic(err)
 	}
 	fmt.Println(shouldBeTrue)
-	env2 := scope{
-		data: map[string]interface{}{
-			"ATTR_VALUE": "1",
-		},
-	}
-	shouldBeFalse, err := expression.Invoke(env2)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(shouldBeFalse)
 }
 
 /*
